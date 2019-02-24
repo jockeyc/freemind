@@ -5,10 +5,14 @@ import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Scanner;
+
+import javax.swing.JFileChooser;
 
 public class ButtonHandler implements ActionListener
 {
@@ -40,6 +44,21 @@ public class ButtonHandler implements ActionListener
 			/**
 			 * *添加想写的代码
 			 */
+			JFileChooser jfc=new JFileChooser();
+			
+	        if(jfc.showOpenDialog(null)==JFileChooser.APPROVE_OPTION){
+	            File file=jfc.getSelectedFile();
+	            
+	            try {
+					Runtime.getRuntime().exec("cmd /c start " + file.getAbsolutePath());
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+	        }
+	        else
+	            System.out.println("No file is selected!");
+	        
 		}
 		else if(source.equals("button_pages"))
 			//查找某一个指定名称的文件，然后在文件列表中选中结果
