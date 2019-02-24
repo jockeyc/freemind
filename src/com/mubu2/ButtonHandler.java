@@ -24,7 +24,7 @@ public class ButtonHandler implements ActionListener
 			StringBuffer sb=new StringBuffer();
 			sb.append("未命名\t创建时间\t未知路径\r\n");
 			try {
-				FileWriter fw=new FileWriter("I:\\Java\\data.txt",true);
+				FileWriter fw=new FileWriter("src/data.txt",true);
 				fw.append(sb.toString());
 				countChange(1);  //文件个数+1
 				fw.close();
@@ -64,7 +64,7 @@ public class ButtonHandler implements ActionListener
 		Item_file[] item_file = null;
 		try 
 		{
-			File data=new File("I:\\Java\\data.txt");
+			File data=new File("src/data.txt");
 			InputStreamReader reader = new InputStreamReader(  
                     new FileInputStream(data)); // 建立一个输入流对象reader  
             BufferedReader br = new BufferedReader(reader); // 建立一个对象，它把文件内容转成计算机能读懂的语言  
@@ -91,7 +91,7 @@ public class ButtonHandler implements ActionListener
 	void countChange(int index)     //对记录文件data.txt中文件个数的更改
 	{
 		try {
-			File data=new File("I:\\Java\\data.txt");
+			File data=new File("src/data.txt");
 			InputStreamReader reader = new InputStreamReader(new FileInputStream(data)); // 建立一个输入流对象reader  
         	BufferedReader br = new BufferedReader(reader); // 建立一个对象，它把文件内容转成计算机能读懂的语言  
         	ArrayList<String> list=new ArrayList<String>();
@@ -102,7 +102,7 @@ public class ButtonHandler implements ActionListener
         		line=br.readLine();
         	}
         	data.createNewFile();
-        	FileWriter fw=new FileWriter("I:\\Java\\data.txt");
+        	FileWriter fw=new FileWriter("src/data.txt");
         	String a=list.get(0);
         	int b=Integer.parseInt(a)+index;
         	fw.append(String.valueOf(b)).append("\r\n");
