@@ -59,7 +59,7 @@ public class Main extends JPanel {
 		menu.setBorder(BorderFactory.createEtchedBorder());
 		menu.setFont(new Font("宋体",Font.PLAIN,15));
 		menu.setPreferredSize(new Dimension(110,400));
-		ImageIcon a =new ImageIcon("add.png");
+		ImageIcon a =new ImageIcon("src/add.png");
 		a.setImage(a.getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT));
 		button_create=new JButton("新建",a);
 		button_create.setBackground(Color.WHITE);
@@ -72,7 +72,7 @@ public class Main extends JPanel {
 		button_create.addActionListener(handler);
 		menu.add(button_create);
 		
-		a =new ImageIcon("folder_open.png");
+		a =new ImageIcon("src/folder_open.png");
 		a.setImage(a.getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT));
 		button_open=new JButton("打开",a);
 		button_open.setBackground(Color.WHITE);
@@ -85,7 +85,7 @@ public class Main extends JPanel {
 		button_open.addActionListener(handler);
 		menu.add(button_open);
 		
-		a =new ImageIcon("search.png");
+		a =new ImageIcon("src/search.png");
 		a.setImage(a.getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT));
 		button_pages=new JButton("查找",a);
 		button_pages.setBackground(Color.WHITE);
