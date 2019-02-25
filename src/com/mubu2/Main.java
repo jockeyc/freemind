@@ -166,7 +166,7 @@ public class Main extends JPanel {
 		//向handler传递控件
 		handler.setSearchFile(searchFile);
 		handler.setTable(table);
-		
+		handler.setDefaultTableModel(model);
 	}
 	//打开记录文件data.txt并保存在item_file[]中
 	private void openFileDetail() {

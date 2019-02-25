@@ -14,10 +14,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Scanner;
+import java.util.Vector;
 
 import javax.swing.JFileChooser;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 public class ButtonHandler implements ActionListener
 {
@@ -26,6 +28,11 @@ public class ButtonHandler implements ActionListener
 	 */
 	JTextField searchFile;
 	JTable table;
+	DefaultTableModel model;
+	
+	void setDefaultTableModel(DefaultTableModel model) {
+		this.model = model;
+	}
 	
 	void setTable(JTable table) {
 		this.table = table;
@@ -84,6 +91,11 @@ public class ButtonHandler implements ActionListener
 				{
 					ee.printStackTrace();
 				}
+				Vector<String> row = new Vector<String>();
+				row.add(file.getName());
+				row.add(lastTime);
+				row.add(file.getParent());
+				model.addRow(row);
 	        }
 	        else
 	            System.out.println("No file is selected!");
@@ -137,7 +149,6 @@ public class ButtonHandler implements ActionListener
 			while(in.hasNext()) {
 				line = in.nextLine();
 				String [] item = line.split("\t");
-				System.out.println(item[0]);
 				if(filename.equals(item[0])) {
 					idx = now;
 					break;
