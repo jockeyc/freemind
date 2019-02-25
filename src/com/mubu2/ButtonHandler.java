@@ -9,7 +9,9 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Scanner;
 
 import javax.swing.JFileChooser;
@@ -19,23 +21,60 @@ public class ButtonHandler implements ActionListener
 	/**
 	 * @funtion:主页面中三个按钮事件的相应以及页面切换
 	 */
+
 	public void actionPerformed(ActionEvent e)
 	{
 		String source=e.getActionCommand();
 		if(source.equals("button_create"))   //新建一个文件然后切换页面
 		{
 			System.out.println("新建一个文件");
-			StringBuffer sb=new StringBuffer();
-			sb.append("未命名\t创建时间\t未知路径\r\n");
-			try {
-				FileWriter fw=new FileWriter("src/data.txt",true);
-				fw.append(sb.toString());
-				countChange(1);  //文件个数+1
-				fw.close();
-			}catch(IOException ee)
-			{
-				ee.printStackTrace();
-			}
+			
+			//弹出一个窗口用于选中目录，在该目录下新建文件
+			JFileChooser jfc=new JFileChooser();
+			File file = null;
+			
+	        if(jfc.showSaveDialog(null) == JFileChooser.APPROVE_OPTION){
+	            file=jfc.getSelectedFile();
+	            
+	            if(!file.exists()) {
+	            	try {
+						file.createNewFile();
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+	            }
+	            
+	            try {
+					Runtime.getRuntime().exec("cmd /c start " + file.getAbsolutePath());
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+	            
+	            //得到文件最后一次更改的时间
+		        Calendar cal = Calendar.getInstance();
+		        long time = file.lastModified();
+		        cal.setTimeInMillis(time);
+		        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		        String lastTime = formatter.format(cal.getTime());
+		        
+		        //将文件信息写入data.txt中
+				StringBuffer sb=new StringBuffer();
+				sb.append(file.getName() + "\t" + lastTime + "\t" + file.getParent() +"\r\n");
+				try {
+					FileWriter fw=new FileWriter("src/data.txt",true);
+					fw.append(sb.toString());
+					countChange(1);  //文件个数+1
+					fw.close();
+				}catch(IOException ee)
+				{
+					ee.printStackTrace();
+				}
+	        }
+	        else
+	            System.out.println("No file is selected!");
+	      
 		}
 		else if(source.equals("button_open"))  
 			//用文本选择器打开一个已存在的文件然后切换界面
@@ -44,9 +83,10 @@ public class ButtonHandler implements ActionListener
 			/**
 			 * *添加想写的代码
 			 */
+			//弹出一个窗口，选择文件并打开
 			JFileChooser jfc=new JFileChooser();
 			
-	        if(jfc.showOpenDialog(null)==JFileChooser.APPROVE_OPTION){
+	        if(jfc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION){
 	            File file=jfc.getSelectedFile();
 	            
 	            try {
