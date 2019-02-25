@@ -6,6 +6,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -15,12 +16,24 @@ import java.util.Calendar;
 import java.util.Scanner;
 
 import javax.swing.JFileChooser;
+import javax.swing.JTable;
+import javax.swing.JTextField;
 
 public class ButtonHandler implements ActionListener
 {
 	/**
 	 * @funtion:主页面中三个按钮事件的相应以及页面切换
 	 */
+	JTextField searchFile;
+	JTable table;
+	
+	void setTable(JTable table) {
+		this.table = table;
+	}
+	
+	void setSearchFile(JTextField searchFile) {
+		this.searchFile = searchFile;
+	}
 
 	public void actionPerformed(ActionEvent e)
 	{
@@ -108,6 +121,35 @@ public class ButtonHandler implements ActionListener
 			/**
 			 * *添加想写的代码
 			 */
+			String filename = searchFile.getText();
+			
+			Scanner in = null;
+			try {
+				in = new Scanner(new File("src/data.txt"));
+			} catch (FileNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			String line = in.nextLine();
+			int cnt = Integer.parseInt(line);
+			int idx = -1, now =0;
+			
+			while(in.hasNext()) {
+				line = in.nextLine();
+				String [] item = line.split("\t");
+				System.out.println(item[0]);
+				if(filename.equals(item[0])) {
+					idx = now;
+					break;
+				}
+				now++;
+			}
+			
+			if(idx != -1) {
+				table.setRowSelectionInterval(idx, idx);
+			}
+			
+			in.close();
 		}
 //		else if(e.getSource()==table)   
 		//双击文件列表切换页面，我暂时不知道应该在哪里写这部分代码，如果你有想法可以在群里面说一下

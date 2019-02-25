@@ -157,13 +157,15 @@ public class Main extends JPanel {
 		Scroll.setViewportView(table);
 		FileList.add(Scroll,BorderLayout.CENTER);
 		
-		
-
 		this.setLayout(new BorderLayout());
 		this.add(menu,BorderLayout.WEST);
 		this.add(FileList,BorderLayout.CENTER);
 		this.setBackground(Color.WHITE);
 		this.setVisible(true);
+		
+		//向handler传递控件
+		handler.setSearchFile(searchFile);
+		handler.setTable(table);
 		
 	}
 	//打开记录文件data.txt并保存在item_file[]中
