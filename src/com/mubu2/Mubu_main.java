@@ -10,7 +10,7 @@ public class Mubu_main extends JFrame {
 	 *@function:主页面，两个jpanel a,b，在一个jframe中切换
 	 */
 	Main a;
-	//Filepanel b;
+	FilePanel b;
 	Mubu_main()
 	{
 		a=new Main();
@@ -21,21 +21,21 @@ public class Mubu_main extends JFrame {
 		this.add(a);
 		this.setBackground(Color.WHITE);
 		this.setVisible(true);
-//		b=new Filepanel();     
+		b=new FilePanel();     
 		System.out.println("主页面");
 	}
 	void change1(int index) //切换页面的基本方法
 	{
-//		b=new Filepanel(index); //item_file[index]就是要在文本编辑页面呈现的内容
+		b=new FilePanel(); //item_file[index]就是要在文本编辑页面呈现的内容
 		a.setVisible(false);
-//		this.add(b);
-		//b.setVisible(true);
+		this.add(b);
+		b.setVisible(true);
 	}
 	void change2() //切换页面的基本方法
 	{
 		a.setVisible(true);
-//		this.add(a);
-		//b.setVisible(false);
+		this.add(a);
+		b.setVisible(false);
 	}
 	public static void main(String args[])
 	{
