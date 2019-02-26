@@ -65,12 +65,6 @@ public class ButtonHandler implements ActionListener
 					}
 	            }
 	            
-	            try {
-					Runtime.getRuntime().exec("cmd /c start " + file.getAbsolutePath());
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
 	            
 	            //得到文件最后一次更改的时间
 		        Calendar cal = Calendar.getInstance();
@@ -123,12 +117,6 @@ public class ButtonHandler implements ActionListener
 	            jFrame.setContentPane(FilePanel.getInstance(jFrame,path));
                 jFrame.validate();
                 
-	            try {
-					Runtime.getRuntime().exec("cmd /c start " + file.getAbsolutePath());
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
 	        }
 	        else
 	            System.out.println("No file is selected!");
