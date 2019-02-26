@@ -16,6 +16,7 @@ import java.util.Vector;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -44,7 +45,7 @@ public class Main extends JPanel {
 	public Item_file[] item_file;  //记录文件data.txt中的内容，用于文件列表的显示
     ButtonHandler handler;     //主页面事件实现类
 	
-	public Main()
+	public Main(JFrame jFrame)
 	{
 		handler=new ButtonHandler();
 		//读取已存储数据
@@ -69,7 +70,6 @@ public class Main extends JPanel {
 		button_create.setVerticalTextPosition(SwingConstants.BOTTOM);
 		button_create.setActionCommand("button_create");
 		button_create.setBounds(10, 70, 90, 90);
-		button_create.addActionListener(handler);
 		menu.add(button_create);
 		
 		a =new ImageIcon("src/folder_open.png");
@@ -82,7 +82,6 @@ public class Main extends JPanel {
 		button_open.setVerticalTextPosition(SwingConstants.BOTTOM);
 		button_open.setActionCommand("button_open");
 		button_open.setBounds(10, 210, 90, 90);
-		button_open.addActionListener(handler);
 		menu.add(button_open);
 		
 		a =new ImageIcon("src/search.png");
@@ -95,7 +94,6 @@ public class Main extends JPanel {
 		button_pages.setVerticalTextPosition(SwingConstants.BOTTOM);
 		button_pages.setActionCommand("button_pages");
 		button_pages.setBounds(10, 350, 90, 90);
-		button_pages.addActionListener(handler);
 		menu.add(button_pages);
 		
 		searchFile=new JTextField("请输入文件名");
@@ -167,6 +165,10 @@ public class Main extends JPanel {
 		handler.setSearchFile(searchFile);
 		handler.setTable(table);
 		handler.setDefaultTableModel(model);
+		handler.setjframe(jFrame);
+		button_pages.addActionListener(handler);
+		button_open.addActionListener(handler);
+		button_create.addActionListener(handler);
 	}
 	//打开记录文件data.txt并保存在item_file[]中
 	private void openFileDetail() {
@@ -216,7 +218,14 @@ public class Main extends JPanel {
 		names.add("");
 		model=new DefaultTableModel(data,names);
 	}
-	public static void main(String[] agrs)
+	
+	private static Main panel_02=null;
+    //对外接口
+    public static Main getInstance(JFrame jFrame){
+        panel_02 = new Main(jFrame);
+        return panel_02;
+    }
+    public static void main(String[] agrs)
     {
         new Mubu_main();    //创建一个实例化对象
         System.out.println("实例化一个对象");

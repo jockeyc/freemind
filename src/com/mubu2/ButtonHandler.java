@@ -6,7 +6,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -17,6 +16,7 @@ import java.util.Scanner;
 import java.util.Vector;
 
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
@@ -29,7 +29,7 @@ public class ButtonHandler implements ActionListener
 	JTextField searchFile;
 	JTable table;
 	DefaultTableModel model;
-	
+	JFrame jFrame;
 	void setDefaultTableModel(DefaultTableModel model) {
 		this.model = model;
 	}
@@ -87,15 +87,20 @@ public class ButtonHandler implements ActionListener
 					fw.append(sb.toString());
 					countChange(1);  //文件个数+1
 					fw.close();
+					Vector<String> row = new Vector<String>();
+					row.add(file.getName());
+					row.add(lastTime);
+					row.add(file.getParent());
+					model.addRow(row);
+					String path=file.getParent()+"\\"+file.getName();
+					System.out.println(file.getParent());
+					jFrame.setContentPane(FilePanel.getInstance(jFrame,path));
+	                jFrame.validate();
 				}catch(IOException ee)
 				{
 					ee.printStackTrace();
 				}
-				Vector<String> row = new Vector<String>();
-				row.add(file.getName());
-				row.add(lastTime);
-				row.add(file.getParent());
-				model.addRow(row);
+				
 	        }
 	        else
 	            System.out.println("No file is selected!");
@@ -113,7 +118,11 @@ public class ButtonHandler implements ActionListener
 			
 	        if(jfc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION){
 	            File file=jfc.getSelectedFile();
-	            
+	            //页面跳转
+	            String path=file.getPath();
+	            jFrame.setContentPane(FilePanel.getInstance(jFrame,path));
+                jFrame.validate();
+                
 	            try {
 					Runtime.getRuntime().exec("cmd /c start " + file.getAbsolutePath());
 				} catch (IOException e1) {
@@ -227,5 +236,9 @@ public class ButtonHandler implements ActionListener
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+	}
+	public void setjframe(JFrame jFrame) {
+		// TODO 自动生成的方法存根
+		this.jFrame=jFrame;
 	}
 }
