@@ -37,7 +37,7 @@ public class FilePanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextArea textField;
-
+	FilePanel_handler filepanel_handler;
 	public FilePanel(JFrame jFrame,String path) 
 	{
 	setBackground(new Color(240, 248, 255));
@@ -53,17 +53,8 @@ public class FilePanel extends JPanel {
 	
 	JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 	
-	JButton btnNewButton_1 = new JButton("\u4FDD\u5B58");
-	btnNewButton_1.addActionListener(new ActionListener() {
-        
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            if(e.getSource()==btnNewButton_1){
-                jFrame.setContentPane(Main.getInstance(jFrame));
-                jFrame.validate();//刷新
-            }
-        }
-    });
+	JButton btnNewButton_1 = new JButton("保存并退出");
+	
 	JLabel label = new JLabel("\u5F53\u524D\u5317\u4EAC\u65F6\u95F4\uFF1A00:00:00");
 	label.setFont(new Font("宋体", Font.BOLD, 15));
 	GroupLayout gl_contentPane = new GroupLayout(contentPane);
@@ -254,6 +245,9 @@ public class FilePanel extends JPanel {
 		try
 		{
 			File data=new File(path);
+			String title=data.getName();
+			title=title.substring(0,title.length()-4);
+			textArea_1.setText(title);
 			InputStreamReader reader = new InputStreamReader(  
 					new FileInputStream(data)); // 建立一个输入流对象reader  
 			@SuppressWarnings("resource")
@@ -277,6 +271,15 @@ public class FilePanel extends JPanel {
 	tabbedPane.addTab("图形转化区", null, panel_2, null);
 	contentPane.setLayout(gl_contentPane);
 	add(contentPane);
+	
+	//增加事件
+		filepanel_handler=new FilePanel_handler();
+		filepanel_handler.setPath(path);
+		filepanel_handler.settextField(textField);
+		filepanel_handler.settextArea_1(textArea_1);
+		filepanel_handler.setjFrame(jFrame);
+		btnNewButton_1.addActionListener(filepanel_handler);
+		
 	setVisible(true);
 	}
 	private static FilePanel panel_02=null;

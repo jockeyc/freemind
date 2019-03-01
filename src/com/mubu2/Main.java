@@ -51,11 +51,12 @@ public class Main extends JPanel {
 		//读取已存储数据
 		openFileDetail();
 		//设计界面
-		System.out.println("初始化对象");
+		Color menu_color=new Color(230,222,233);
+		Color table_color=new Color(253,252,251);
 		setBackground(Color.WHITE);
 		setSize(700,800);
 		menu=new JPanel();
-		menu.setBackground(Color.WHITE);
+		menu.setBackground(menu_color);
 		menu.setLayout(null);
 		menu.setBorder(BorderFactory.createEtchedBorder());
 		menu.setFont(new Font("宋体",Font.PLAIN,15));
@@ -63,7 +64,7 @@ public class Main extends JPanel {
 		ImageIcon a =new ImageIcon("src/add.png");
 		a.setImage(a.getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT));
 		button_create=new JButton("新建",a);
-		button_create.setBackground(Color.WHITE);
+		button_create.setBackground(menu_color);
 		button_create.setFocusPainted(false);
 		button_create.setBorderPainted(false);
 		button_create.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -75,7 +76,7 @@ public class Main extends JPanel {
 		a =new ImageIcon("src/folder_open.png");
 		a.setImage(a.getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT));
 		button_open=new JButton("打开",a);
-		button_open.setBackground(Color.WHITE);
+		button_open.setBackground(menu_color);
 		button_open.setFocusPainted(false);
 		button_open.setBorderPainted(false);
 		button_open.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -87,7 +88,7 @@ public class Main extends JPanel {
 		a =new ImageIcon("src/search.png");
 		a.setImage(a.getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT));
 		button_pages=new JButton("查找",a);
-		button_pages.setBackground(Color.WHITE);
+		button_pages.setBackground(menu_color);
 		button_pages.setFocusPainted(false);
 		button_pages.setBorderPainted(false);
 		button_pages.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -98,6 +99,7 @@ public class Main extends JPanel {
 		
 		searchFile=new JTextField("请输入文件名");
 		searchFile.setBounds(5, 440, 100, 20);
+		
 		menu.add(searchFile);
 		
 		FileList=new JPanel();
@@ -137,6 +139,7 @@ public class Main extends JPanel {
 		table.setFont(new Font("宋体",Font.PLAIN,15));
 		table.setShowGrid(false);
 		table.setRowHeight(19);
+		table.setBackground(table_color);
 		table.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e)
