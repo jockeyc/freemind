@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.InputEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
@@ -44,19 +45,20 @@ public class Main extends JPanel {
 	JScrollPane Scroll;
 	public Item_file[] item_file;  //记录文件data.txt中的内容，用于文件列表的显示
     ButtonHandler handler;     //主页面事件实现类
+    JFrame jFrame;
 	
 	public Main(JFrame jFrame)
 	{
+		this.jFrame=jFrame;
 		handler=new ButtonHandler();
 		//读取已存储数据
 		openFileDetail();
 		//设计界面
-		Color menu_color=new Color(230,222,233);
-		Color table_color=new Color(253,252,251);
+		System.out.println("初始化对象");
 		setBackground(Color.WHITE);
 		setSize(700,800);
 		menu=new JPanel();
-		menu.setBackground(menu_color);
+		menu.setBackground(Color.WHITE);
 		menu.setLayout(null);
 		menu.setBorder(BorderFactory.createEtchedBorder());
 		menu.setFont(new Font("宋体",Font.PLAIN,15));
@@ -64,7 +66,7 @@ public class Main extends JPanel {
 		ImageIcon a =new ImageIcon("src/add.png");
 		a.setImage(a.getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT));
 		button_create=new JButton("新建",a);
-		button_create.setBackground(menu_color);
+		button_create.setBackground(Color.WHITE);
 		button_create.setFocusPainted(false);
 		button_create.setBorderPainted(false);
 		button_create.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -76,7 +78,7 @@ public class Main extends JPanel {
 		a =new ImageIcon("src/folder_open.png");
 		a.setImage(a.getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT));
 		button_open=new JButton("打开",a);
-		button_open.setBackground(menu_color);
+		button_open.setBackground(Color.WHITE);
 		button_open.setFocusPainted(false);
 		button_open.setBorderPainted(false);
 		button_open.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -88,7 +90,7 @@ public class Main extends JPanel {
 		a =new ImageIcon("src/search.png");
 		a.setImage(a.getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT));
 		button_pages=new JButton("查找",a);
-		button_pages.setBackground(menu_color);
+		button_pages.setBackground(Color.WHITE);
 		button_pages.setFocusPainted(false);
 		button_pages.setBorderPainted(false);
 		button_pages.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -99,7 +101,6 @@ public class Main extends JPanel {
 		
 		searchFile=new JTextField("请输入文件名");
 		searchFile.setBounds(5, 440, 100, 20);
-		
 		menu.add(searchFile);
 		
 		FileList=new JPanel();
@@ -139,7 +140,6 @@ public class Main extends JPanel {
 		table.setFont(new Font("宋体",Font.PLAIN,15));
 		table.setShowGrid(false);
 		table.setRowHeight(19);
-		table.setBackground(table_color);
 		table.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e)
@@ -152,6 +152,11 @@ public class Main extends JPanel {
 					 * 添加想写的代码
 					 */
 				}
+			}
+		});
+		table.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) {
+				this_mousePressed(e);
 			}
 		});
 		Scroll=new JScrollPane();
@@ -172,6 +177,16 @@ public class Main extends JPanel {
 		button_pages.addActionListener(handler);
 		button_open.addActionListener(handler);
 		button_create.addActionListener(handler);
+	}
+	protected void this_mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		int mods=e.getModifiers();
+		//鼠标右键
+		if((mods&InputEvent.BUTTON3_MASK)!=0){
+		//弹出菜单
+			MyPopupMenu myPopupMenu = new MyPopupMenu(this);
+			myPopupMenu.show(this, e.getX()+110, e.getY()+15);
+		}
 	}
 	//打开记录文件data.txt并保存在item_file[]中
 	private void openFileDetail() {
@@ -228,11 +243,8 @@ public class Main extends JPanel {
         panel_02 = new Main(jFrame);
         return panel_02;
     }
-    public static void main(String[] agrs)
-    {
-        new Mubu_main();    //创建一个实例化对象
-        System.out.println("实例化一个对象");
-    }
+    
+
 	Item_file[] getItem_file()
 	{
 		return item_file;
