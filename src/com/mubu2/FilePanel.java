@@ -42,6 +42,8 @@ public class FilePanel extends JPanel {
 	private JPanel contentPane;
 
 	private JTextArea textField;
+	
+	private FilePanelButtonHandler filePanelButtonHandler = new FilePanelButtonHandler();
 
 	public FilePanel(JFrame jFrame,String path) 
 	{
@@ -54,7 +56,9 @@ public class FilePanel extends JPanel {
 	contentPane.setFont(new Font("¿¬Ìå", Font.BOLD, 15));
 	contentPane.setBackground(new Color(245, 255, 250));
 	contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-
+	
+	
+	
 	
 	JPanel panel = new JPanel();
 	
@@ -146,26 +150,8 @@ public class FilePanel extends JPanel {
 	button_5.setToolTipText("\u5B8C\u6210");
 	button_5.setIcon(new ImageIcon("src/img/finished.PNG"));
 	
-	JButton button_6 = new JButton("");
-	button_6.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-			Highlighter highLighter = textField.getHighlighter();
-			DefaultHighlightPainter	painter = new DefaultHighlightPainter(Color.cyan);
-			int pos = textField.getCaretPosition();
-			String text = textField.getText();
-			int start = Math.min(pos, text.length()-1),end = pos;
-			System.out.println(start + " " + pos + " " + end);
-			while(start > 0 && text.charAt(start)!='\n') start--;
-			while(end < text.length() && text.charAt(end) != '\n') end++;
-			System.out.println(start + " " + pos + " " + end);
-			try {
-				highLighter.addHighlight(start, end, painter);
-			} catch (BadLocationException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-		}
-	});
+	JButton button_6 = new JButton("123");
+	button_6.addActionListener(filePanelButtonHandler);
 	button_6.setToolTipText("\u9AD8\u4EAE");
 	button_6.setIcon(new ImageIcon("src/img/highlight.png"));
 	
@@ -249,6 +235,8 @@ public class FilePanel extends JPanel {
 	
 
 	JTextField textArea_1 = new JTextField();
+	
+	
 
 	textArea_1.setBorder(new LineBorder(Color.GRAY, 1, true));
 	GroupLayout gl_panel_3 = new GroupLayout(panel_3);
@@ -273,6 +261,7 @@ public class FilePanel extends JPanel {
 	
 
 	textField = new JTextArea();
+	filePanelButtonHandler.setTextField(textField);
 	scrollPane.setViewportView(textField);
 	textField.setColumns(10);
 	if(path!=null)
