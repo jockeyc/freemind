@@ -26,6 +26,11 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DefaultHighlighter;
+import javax.swing.text.DefaultHighlighter.DefaultHighlightPainter;
+import javax.swing.text.Highlighter;
+
 import java.awt.Dimension;
 
 public class FilePanel extends JPanel {
@@ -143,7 +148,22 @@ public class FilePanel extends JPanel {
 	
 	JButton button_6 = new JButton("");
 	button_6.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent arg0) {
+		public void actionPerformed(ActionEvent e) {
+			Highlighter highLighter = textField.getHighlighter();
+			DefaultHighlightPainter	painter = new DefaultHighlightPainter(Color.cyan);
+			int pos = textField.getCaretPosition();
+			String text = textField.getText();
+			int start = Math.min(pos, text.length()-1),end = pos;
+			System.out.println(start + " " + pos + " " + end);
+			while(start > 0 && text.charAt(start)!='\n') start--;
+			while(end < text.length() && text.charAt(end) != '\n') end++;
+			System.out.println(start + " " + pos + " " + end);
+			try {
+				highLighter.addHighlight(start, end, painter);
+			} catch (BadLocationException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 	});
 	button_6.setToolTipText("\u9AD8\u4EAE");
