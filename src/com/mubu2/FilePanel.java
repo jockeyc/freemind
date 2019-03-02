@@ -271,6 +271,7 @@ public class FilePanel extends JPanel {
 				textField.append("\r\n");
 				line=br.readLine();
 			}
+			reader.close();
         }
 		catch(Exception e) 
 		{
