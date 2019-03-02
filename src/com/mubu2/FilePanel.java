@@ -139,7 +139,8 @@ public class FilePanel extends JPanel {
 			DefaultHighlightPainter	painter = new DefaultHighlightPainter(Color.cyan);
 			int pos = textField.getCaretPosition();
 			String text = textField.getText();
-			int start = Math.min(pos, text.length()-1),end = pos;
+			if(pos == text.length() || text.charAt(pos) == '\n') pos--;
+			int start = pos,end = pos;
 			System.out.println(start + " " + pos + " " + end);
 			while(start > 0 && text.charAt(start)!='\n') start--;
 			while(end < text.length() && text.charAt(end) != '\n') end++;
