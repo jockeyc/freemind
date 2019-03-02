@@ -42,6 +42,7 @@ public class FilePanel extends JPanel {
 	private JPanel contentPane;
 	private JTextArea textField;
 	ButtonHandler handler;
+	FilePanelButtonHandler filePanelButtonHandler;
 	public FilePanel(JFrame jFrame,String path) 
 	{
 	setBackground(new Color(240, 248, 255));
@@ -92,12 +93,8 @@ public class FilePanel extends JPanel {
 	);
 	
 	JButton btnNewButton = new JButton("");
+	btnNewButton.setActionCommand("增加缩进");
 	btnNewButton.setToolTipText("\u589E\u52A0\u7F29\u8FDB");
-	btnNewButton.addMouseListener(new MouseAdapter() {
-		@Override
-		public void mouseClicked(MouseEvent arg0) {
-		}
-	});
 	btnNewButton.setIcon(new ImageIcon("src/img/tab.png"));
 	
 	JButton button_1 = new JButton("");
@@ -109,10 +106,7 @@ public class FilePanel extends JPanel {
 	button_2.setIcon(new ImageIcon("src/img/delete.png"));
 	
 	JButton button_3 = new JButton("");
-	button_3.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent arg0) {
-		}
-	});
+	button_3.setActionCommand("减少缩进");
 	button_3.setToolTipText("\u51CF\u5C11\u7F29\u8FDB");
 	button_3.setIcon(new ImageIcon("src/img/r_tab.png"));
 	
@@ -133,26 +127,7 @@ public class FilePanel extends JPanel {
 	button_5.setIcon(new ImageIcon("src/img/finished.PNG"));
 	
 	JButton button_6 = new JButton("");
-	button_6.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-			Highlighter highLighter = textField.getHighlighter();
-			DefaultHighlightPainter	painter = new DefaultHighlightPainter(Color.cyan);
-			int pos = textField.getCaretPosition();
-			String text = textField.getText();
-			if(pos == text.length() || text.charAt(pos) == '\n') pos--;
-			int start = pos,end = pos;
-			System.out.println(start + " " + pos + " " + end);
-			while(start > 0 && text.charAt(start)!='\n') start--;
-			while(end < text.length() && text.charAt(end) != '\n') end++;
-			System.out.println(start + " " + pos + " " + end);
-			try {
-				highLighter.addHighlight(start, end, painter);
-			} catch (BadLocationException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-		}
-	});
+	button_6.setActionCommand("高亮");
 	button_6.setToolTipText("\u9AD8\u4EAE");
 	button_6.setIcon(new ImageIcon("src/img/highlight.png"));
 	
@@ -299,6 +274,13 @@ public class FilePanel extends JPanel {
 	handler.setjFrame(jFrame);
 	btnNewButton_1.setActionCommand("btnNewButton_1");
 	btnNewButton_1.addActionListener(handler);
+	
+	filePanelButtonHandler = new FilePanelButtonHandler();
+	filePanelButtonHandler.setTextField(textField);
+	btnNewButton.addActionListener(filePanelButtonHandler);//增加缩进
+	button_3.addActionListener(filePanelButtonHandler);//减少缩进
+	button_6.addActionListener(filePanelButtonHandler);//高亮
+	
 	
 	add(contentPane);
 	setVisible(true);
