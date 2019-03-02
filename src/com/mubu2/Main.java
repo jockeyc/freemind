@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.InputEvent;
@@ -126,6 +128,8 @@ public class Main extends JPanel {
 				}
 			}
 		});
+		searchFile.addActionListener(handler);
+		searchFile.setActionCommand("button_pages");
 		searchFile.setBounds(5, 440, 100, 20);
 		menu.add(searchFile);
 		
