@@ -2,6 +2,7 @@ package com.mubu2;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
@@ -19,6 +20,7 @@ import java.util.Vector;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -28,6 +30,7 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 
 public class Main extends JPanel {
 	/**
@@ -138,21 +141,35 @@ public class Main extends JPanel {
 			public boolean isCellEditable(int rowIndex, int ColIndex){
 	             return false;
 	            }
+			public Component prepareRenderer(TableCellRenderer renderer,int row, int column) 
+			{
+					Component c = super.prepareRenderer(renderer, row, column);
+					if (c instanceof JComponent) 
+					{
+						((JComponent) c).setOpaque(false);
+					}
+					return c;
+			}
 	    };
+	    table.setOpaque(false); // 设置jtable本身为透明的
 		table.setFont(new Font("宋体",Font.PLAIN,15));
 		table.setShowGrid(false);
 		table.setRowHeight(19);
-		table.setBackground(table_color);
 		table.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
 		table.addMouseListener(new TableListener(jFrame,table));
+		ImageIcon icon = new ImageIcon("bizhi.png");
+		icon.setImage(icon.getImage().getScaledInstance(700,850,Image.SCALE_DEFAULT));
+		JLabel lab = new JLabel(icon); // 将图片放入到label中
+		lab.setBounds(0, 0, icon.getIconWidth(), icon.getIconHeight()); // 设置放有图片的label的位置
+		FileList.add(lab,BorderLayout.CENTER, -1); 
+		FileList.add(table,BorderLayout.CENTER,0);
 		Scroll=new JScrollPane();
-		Scroll.setViewportView(table);
-		FileList.add(Scroll,BorderLayout.CENTER);
+		Scroll.setViewportView(FileList);
 		
 		this.setLayout(new BorderLayout());
 		this.add(menu,BorderLayout.WEST);
-		this.add(FileList,BorderLayout.CENTER);
+		this.add(Scroll,BorderLayout.CENTER);
 		this.setBackground(Color.WHITE);
 		this.setVisible(true);
 		
