@@ -12,7 +12,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
-
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -27,6 +26,11 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DefaultHighlighter;
+import javax.swing.text.DefaultHighlighter.DefaultHighlightPainter;
+import javax.swing.text.Highlighter;
+
 import java.awt.Dimension;
 
 public class FilePanel extends JPanel {
@@ -36,11 +40,13 @@ public class FilePanel extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+
 	private JTextArea textField;
-	FilePanel_handler filepanel_handler;
+
 	public FilePanel(JFrame jFrame,String path) 
 	{
 	setBackground(new Color(240, 248, 255));
+
 	setBounds(100, 100, 801, 699);
 	contentPane = new JPanel();
 	contentPane.setToolTipText("\u6587\u672C\u7F16\u8F91\u9875\u9762");
@@ -53,8 +59,18 @@ public class FilePanel extends JPanel {
 	
 	JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 	
-	JButton btnNewButton_1 = new JButton("保存并退出");
-	
+	JButton btnNewButton_1 = new JButton("\u4FDD\u5B58");
+	btnNewButton_1.addActionListener(new ActionListener() {
+        
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if(e.getSource()==btnNewButton_1){
+                jFrame.setContentPane(Main.getInstance(jFrame));
+                jFrame.validate();//刷新
+            }
+        }
+    });
+
 	JLabel label = new JLabel("\u5F53\u524D\u5317\u4EAC\u65F6\u95F4\uFF1A00:00:00");
 	label.setFont(new Font("宋体", Font.BOLD, 15));
 	GroupLayout gl_contentPane = new GroupLayout(contentPane);
@@ -94,7 +110,6 @@ public class FilePanel extends JPanel {
 		public void mouseClicked(MouseEvent arg0) {
 		}
 	});
-	btnNewButton.setBackground(Color.WHITE);
 	btnNewButton.setIcon(new ImageIcon("src/img/tab.png"));
 	
 	JButton button_1 = new JButton("");
@@ -131,7 +146,22 @@ public class FilePanel extends JPanel {
 	
 	JButton button_6 = new JButton("");
 	button_6.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent arg0) {
+		public void actionPerformed(ActionEvent e) {
+			Highlighter highLighter = textField.getHighlighter();
+			DefaultHighlightPainter	painter = new DefaultHighlightPainter(Color.cyan);
+			int pos = textField.getCaretPosition();
+			String text = textField.getText();
+			int start = Math.min(pos, text.length()-1),end = pos;
+			System.out.println(start + " " + pos + " " + end);
+			while(start > 0 && text.charAt(start)!='\n') start--;
+			while(end < text.length() && text.charAt(end) != '\n') end++;
+			System.out.println(start + " " + pos + " " + end);
+			try {
+				highLighter.addHighlight(start, end, painter);
+			} catch (BadLocationException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 	});
 	button_6.setToolTipText("\u9AD8\u4EAE");
@@ -214,8 +244,9 @@ public class FilePanel extends JPanel {
 	scrollPane.setColumnHeaderView(panel_3);
 	
 	JLabel lblNewLabel_1 = new JLabel("标题:   ");
-	
+
 	JTextField textArea_1 = new JTextField();
+
 	textArea_1.setBorder(new LineBorder(Color.GRAY, 1, true));
 	GroupLayout gl_panel_3 = new GroupLayout(panel_3);
 	gl_panel_3.setHorizontalGroup(
@@ -245,9 +276,6 @@ public class FilePanel extends JPanel {
 		try
 		{
 			File data=new File(path);
-			String title=data.getName();
-			title=title.substring(0,title.length()-4);
-			textArea_1.setText(title);
 			InputStreamReader reader = new InputStreamReader(  
 					new FileInputStream(data)); // 建立一个输入流对象reader  
 			@SuppressWarnings("resource")
@@ -259,27 +287,21 @@ public class FilePanel extends JPanel {
 				textField.append("\r\n");
 				line=br.readLine();
 			}
+			reader.close();
         }
 		catch(Exception e) 
 		{
 			e.printStackTrace();
 		}
 	}
+
 	
 	JPanel panel_2 = new JPanel();
 	panel_2.setBackground(Color.WHITE);
 	tabbedPane.addTab("图形转化区", null, panel_2, null);
 	contentPane.setLayout(gl_contentPane);
+
 	add(contentPane);
-	
-	//增加事件
-		filepanel_handler=new FilePanel_handler();
-		filepanel_handler.setPath(path);
-		filepanel_handler.settextField(textField);
-		filepanel_handler.settextArea_1(textArea_1);
-		filepanel_handler.setjFrame(jFrame);
-		btnNewButton_1.addActionListener(filepanel_handler);
-		
 	setVisible(true);
 	}
 	private static FilePanel panel_02=null;
@@ -289,4 +311,5 @@ public class FilePanel extends JPanel {
 		panel_02 = new FilePanel(jFrame,path);
 		return panel_02;
 	}
+
 }
