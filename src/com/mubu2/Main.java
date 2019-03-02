@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.InputEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
@@ -16,6 +17,7 @@ import java.util.Vector;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -43,9 +45,11 @@ public class Main extends JPanel {
 	JScrollPane Scroll;
 	public Item_file[] item_file;  //记录文件data.txt中的内容，用于文件列表的显示
     ButtonHandler handler;     //主页面事件实现类
+    JFrame jFrame;
 	
-	public Main()
+	public Main(JFrame jFrame)
 	{
+		this.jFrame=jFrame;
 		handler=new ButtonHandler();
 		//读取已存储数据
 		openFileDetail();
@@ -69,7 +73,6 @@ public class Main extends JPanel {
 		button_create.setVerticalTextPosition(SwingConstants.BOTTOM);
 		button_create.setActionCommand("button_create");
 		button_create.setBounds(10, 70, 90, 90);
-		button_create.addActionListener(handler);
 		menu.add(button_create);
 		
 		a =new ImageIcon("src/folder_open.png");
@@ -82,7 +85,6 @@ public class Main extends JPanel {
 		button_open.setVerticalTextPosition(SwingConstants.BOTTOM);
 		button_open.setActionCommand("button_open");
 		button_open.setBounds(10, 210, 90, 90);
-		button_open.addActionListener(handler);
 		menu.add(button_open);
 		
 		a =new ImageIcon("src/search.png");
@@ -95,7 +97,6 @@ public class Main extends JPanel {
 		button_pages.setVerticalTextPosition(SwingConstants.BOTTOM);
 		button_pages.setActionCommand("button_pages");
 		button_pages.setBounds(10, 350, 90, 90);
-		button_pages.addActionListener(handler);
 		menu.add(button_pages);
 		
 		searchFile=new JTextField("请输入文件名");
@@ -153,6 +154,11 @@ public class Main extends JPanel {
 				}
 			}
 		});
+		table.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) {
+				this_mousePressed(e);
+			}
+		});
 		Scroll=new JScrollPane();
 		Scroll.setViewportView(table);
 		FileList.add(Scroll,BorderLayout.CENTER);
@@ -167,6 +173,20 @@ public class Main extends JPanel {
 		handler.setSearchFile(searchFile);
 		handler.setTable(table);
 		handler.setDefaultTableModel(model);
+		handler.setjframe(jFrame);
+		button_pages.addActionListener(handler);
+		button_open.addActionListener(handler);
+		button_create.addActionListener(handler);
+	}
+	protected void this_mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		int mods=e.getModifiers();
+		//鼠标右键
+		if((mods&InputEvent.BUTTON3_MASK)!=0){
+		//弹出菜单
+			MyPopupMenu myPopupMenu = new MyPopupMenu(this);
+			myPopupMenu.show(this, e.getX()+110, e.getY()+15);
+		}
 	}
 	//打开记录文件data.txt并保存在item_file[]中
 	private void openFileDetail() {
@@ -216,11 +236,15 @@ public class Main extends JPanel {
 		names.add("");
 		model=new DefaultTableModel(data,names);
 	}
-	public static void main(String[] agrs)
-    {
-        new Mubu_main();    //创建一个实例化对象
-        System.out.println("实例化一个对象");
+	
+	private static Main panel_02=null;
+    //对外接口
+    public static Main getInstance(JFrame jFrame){
+        panel_02 = new Main(jFrame);
+        return panel_02;
     }
+    
+
 	Item_file[] getItem_file()
 	{
 		return item_file;

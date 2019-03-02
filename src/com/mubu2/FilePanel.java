@@ -1,4 +1,5 @@
 package com.mubu2;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -7,12 +8,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -32,12 +35,13 @@ public class FilePanel extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textField;
 
-	public FilePanel(){
-	//setTitle("\u8D85\u7EA7\u5947\u602A\u7684\u601D\u7EF4\u5BFC\u56FE");
+	private JTextArea textField;
+
+	public FilePanel(JFrame jFrame,String path) 
+	{
 	setBackground(new Color(240, 248, 255));
-	//setDefaultCloseOperation(JPanel.EXIT_ON_CLOSE);
+
 	setBounds(100, 100, 801, 699);
 	contentPane = new JPanel();
 	contentPane.setToolTipText("\u6587\u672C\u7F16\u8F91\u9875\u9762");
@@ -45,14 +49,25 @@ public class FilePanel extends JPanel {
 	contentPane.setFont(new Font("楷体", Font.BOLD, 15));
 	contentPane.setBackground(new Color(245, 255, 250));
 	contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-	//setContentPane(contentPane);
+
 	
 	JPanel panel = new JPanel();
 	
 	JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 	
-	JButton btnNewButton_1 = new JButton("\u4FDD\u5B58\u4E3A...");
-	
+
+	JButton btnNewButton_1 = new JButton("\u4FDD\u5B58");
+	btnNewButton_1.addActionListener(new ActionListener() {
+        
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if(e.getSource()==btnNewButton_1){
+                jFrame.setContentPane(Main.getInstance(jFrame));
+                jFrame.validate();//刷新
+            }
+        }
+    });
+
 	JLabel label = new JLabel("\u5F53\u524D\u5317\u4EAC\u65F6\u95F4\uFF1A00:00:00");
 	label.setFont(new Font("宋体", Font.BOLD, 15));
 	GroupLayout gl_contentPane = new GroupLayout(contentPane);
@@ -213,7 +228,9 @@ public class FilePanel extends JPanel {
 	
 	JLabel lblNewLabel_1 = new JLabel("标题:   ");
 	
-	JTextArea textArea_1 = new JTextArea();
+
+	JTextField textArea_1 = new JTextField();
+
 	textArea_1.setBorder(new LineBorder(Color.GRAY, 1, true));
 	GroupLayout gl_panel_3 = new GroupLayout(panel_3);
 	gl_panel_3.setHorizontalGroup(
@@ -235,13 +252,48 @@ public class FilePanel extends JPanel {
 	);
 	panel_3.setLayout(gl_panel_3);
 	
-	textField = new JTextField();
+
+	textField = new JTextArea();
 	scrollPane.setViewportView(textField);
 	textField.setColumns(10);
+	if(path!=null)
+	{
+		try
+		{
+			File data=new File(path);
+			InputStreamReader reader = new InputStreamReader(  
+					new FileInputStream(data)); // 建立一个输入流对象reader  
+			@SuppressWarnings("resource")
+			BufferedReader br = new BufferedReader(reader); // 建立一个对象，它把文件内容转成计算机能读懂的语言  
+			String line=br.readLine();
+			while(line!=null)
+			{
+				textField.append(line);
+				textField.append("\r\n");
+				line=br.readLine();
+			}
+        }
+		catch(Exception e) 
+		{
+			e.printStackTrace();
+		}
+	}
+
 	
 	JPanel panel_2 = new JPanel();
 	panel_2.setBackground(Color.WHITE);
 	tabbedPane.addTab("图形转化区", null, panel_2, null);
 	contentPane.setLayout(gl_contentPane);
-}
+
+	add(contentPane);
+	setVisible(true);
+	}
+	private static FilePanel panel_02=null;
+    //对外接口
+	public static FilePanel getInstance(JFrame jFrame,String path)
+	{
+		panel_02 = new FilePanel(jFrame,path);
+		return panel_02;
+	}
+
 }
