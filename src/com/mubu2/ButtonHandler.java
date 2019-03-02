@@ -18,6 +18,7 @@ import java.util.Vector;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
@@ -26,6 +27,23 @@ public class ButtonHandler implements ActionListener
 	/**
 	 * @funtion:主页面中三个按钮事件的相应以及页面切换
 	 */
+	//file_panel
+		String path;
+		JTextArea textField;
+		JTextField textArea_1;
+		void setPath(String path)
+		{
+			this.path=path;
+		}
+		void settextField(JTextArea textField)
+		{
+			this.textField=textField;
+		}
+		void settextArea_1(JTextField textArea_1)
+		{
+			this.textArea_1=textArea_1;
+		}
+	
 	JTextField searchFile;
 	JTable table;
 	DefaultTableModel model;
@@ -160,6 +178,43 @@ public class ButtonHandler implements ActionListener
 			
 			in.close();
 		}
+		else if(source.equals("btnNewButton_1"))
+		{
+			System.out.println("保存文件");
+        	File data=new File(path);
+			try {
+				data.createNewFile();
+				String detail=textField.getText();
+				FileWriter fw=new FileWriter(path);
+				fw.write(detail);
+				fw.close();
+				//更改文件名，实质上是更改文件的路径
+				String title=textArea_1.getText();
+				if(title.equals(data.getName())==false)
+				{
+					int index=path.lastIndexOf("\\");
+					String path1=path.substring(0,index+1);
+					String path2=path1+title+".txt";
+					data.renameTo(new File(path2));
+					data=new File(path);
+//					System.out.println(data.delete());
+					this.path=path2;
+					
+					Calendar cal = Calendar.getInstance();
+			        long time = data.lastModified();
+			        cal.setTimeInMillis(time);
+			        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			        String lastTime = formatter.format(cal.getTime());
+			        System.out.println(lastTime);
+			        
+				}
+				jFrame.setContentPane(Main.getInstance(jFrame));
+				jFrame.validate();//刷新
+			}
+			catch(Exception ee){
+				ee.printStackTrace();
+			}
+		}
 //		else if(e.getSource()==table)   
 		//双击文件列表切换页面，我暂时不知道应该在哪里写这部分代码，如果你有想法可以在群里面说一下
 //		{
@@ -226,7 +281,7 @@ public class ButtonHandler implements ActionListener
 			e.printStackTrace();
 		}
 	}
-	public void setjframe(JFrame jFrame) {
+	public void setjFrame(JFrame jFrame) {
 		// TODO 自动生成的方法存根
 		this.jFrame=jFrame;
 	}
