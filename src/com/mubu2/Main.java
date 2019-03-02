@@ -231,7 +231,7 @@ public class Main extends JPanel {
 		handler.setSearchFile(searchFile);
 		handler.setTable(table);
 		handler.setDefaultTableModel(model);
-		handler.setjframe(jFrame);
+		handler.setjFrame(jFrame);
 		button_pages.addActionListener(handler);
 		button_open.addActionListener(handler);
 		button_create.addActionListener(handler);
