@@ -7,10 +7,13 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
+import java.util.Scanner;
 import java.util.Vector;
 
 import javax.swing.BorderFactory;
@@ -141,19 +144,8 @@ public class Main extends JPanel {
 		table.setRowHeight(19);
 		table.setBackground(table_color);
 		table.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		table.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e)
-			{
-				if(e.getClickCount()==2)
-				{
-					int count=table.getSelectedRow();
-					System.out.println(count);
-					/*
-					 * 添加想写的代码
-					 */
-				}
-			}
-		});
+		
+		table.addMouseListener(new TableListener(jFrame,table));
 		Scroll=new JScrollPane();
 		Scroll.setViewportView(table);
 		FileList.add(Scroll,BorderLayout.CENTER);
@@ -228,11 +220,7 @@ public class Main extends JPanel {
         panel_02 = new Main(jFrame);
         return panel_02;
     }
-    public static void main(String[] agrs)
-    {
-        new Mubu_main();    //创建一个实例化对象
-        System.out.println("实例化一个对象");
-    }
+
 	Item_file[] getItem_file()
 	{
 		return item_file;
