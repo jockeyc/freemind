@@ -184,8 +184,13 @@ public class Main extends JPanel {
 		//鼠标右键
 		if((mods&InputEvent.BUTTON3_MASK)!=0){
 		//弹出菜单
-			MyPopupMenu myPopupMenu = new MyPopupMenu(this);
-			myPopupMenu.show(this, e.getX()+110, e.getY()+15);
+			MyPopupMenu myPopupMenu = new MyPopupMenu();
+			myPopupMenu.setTable(table);
+			myPopupMenu.setModel(model);
+			myPopupMenu.setSearchFile(searchFile);
+			myPopupMenu.setjFrame(jFrame);
+			myPopupMenu.init();
+			myPopupMenu.show(this.getParent(), e.getX()+110, e.getY()+15);
 		}
 	}
 	//打开记录文件data.txt并保存在item_file[]中
