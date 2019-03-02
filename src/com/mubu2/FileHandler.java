@@ -63,11 +63,10 @@ public class FileHandler {
 	 */
 	void delete(File parent,String fileName) {
 		File file = new File(parent, fileName);
+		Item_file item = getItem(file);
+		data.delete(item);
+		data.push();
 		if(file.exists()) {
-			Item_file item = getItem(file);
-			
-			data.delete(item);
-			data.push();
 			file.delete();
 		}
 	}
@@ -127,7 +126,7 @@ public class FileHandler {
         String lastTime = formatter.format(cal.getTime());
         
         item.changeName(file.getName());
-        item.changePath(file.getAbsolutePath());
+        item.changePath(file.getParent());
         item.changeTime(lastTime);
         
         return item;

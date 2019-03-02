@@ -54,6 +54,7 @@ public class Data {
 		}
 		
 		try {
+			count =files.size();
 			out.write("" + count);
 			out.newLine();
 			for(int i=0;i<files.size();i++) {
@@ -67,22 +68,23 @@ public class Data {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		Vector vec = new Vector();
-		Vector<String> tmp = new Vector<String>();
 		
 		for(int i=0;i<files.size();i++) {
+			Vector<String> tmp = new Vector<String>();
 			tmp.removeAllElements();
 			tmp.add(files.get(i).name);
 			tmp.add(files.get(i).time);
 			tmp.add(files.get(i).path);
 			vec.add(tmp);
 		}
-		
-		tmp.add("");
-		tmp.add("");
-		tmp.add("");
-		model.setDataVector(vec, tmp);
+		Vector<String> colName = new Vector<String>();
+		colName.add("");
+		colName.add("");
+		colName.add("");
+		model.setDataVector(vec, colName);
+
 	}
 	
 	void push() {
@@ -97,7 +99,14 @@ public class Data {
 		for(int i=0;i<files.size();i++) {
 			if(files.get(i).equals(item)) {
 				files.remove(i);
+				i--;
 			}
+			
+		}
+	}
+	void show() {
+		for(int i=0;i<files.size();i++) {
+			System.out.println(files.get(i).name + "\t" + files.get(i).time + "\t" +files.get(i).path);
 		}
 	}
 	

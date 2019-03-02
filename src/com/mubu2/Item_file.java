@@ -17,6 +17,26 @@ public class Item_file {
 		this.name=name;
 		this.time=time;
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		// TODO Auto-generated method stub
+		if(obj == null) {
+			return false;
+		}
+		Item_file item = (Item_file) obj;
+		if(name.equals(item.name) && path.equals(item.path)){
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return name + "\t" + time + "\t" +path;
+	}
 	void changePath(String path)
 	{
 		this.path=path;
