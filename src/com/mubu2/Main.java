@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.InputEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -100,6 +102,30 @@ public class Main extends JPanel {
 		menu.add(button_pages);
 		
 		searchFile=new JTextField("请输入文件名");
+		searchFile.addFocusListener(new FocusListener() {
+			
+			@Override
+			public void focusLost(FocusEvent e) {
+				// TODO Auto-generated method stub
+				JTextField textField = (JTextField)e.getSource();
+				String temp = textField.getText();
+				if(temp.equals("")) {
+					textField.setText("请输入文件名");
+					textField.setForeground(Color.BLACK);
+				}
+			}
+			
+			@Override
+			public void focusGained(FocusEvent e) {
+				// TODO Auto-generated method stub
+				JTextField textField = (JTextField)e.getSource();
+				String temp = textField.getText();
+				if(temp.equals("请输入文件名")) {
+					textField.setText("");
+					textField.setForeground(Color.BLACK);
+				}
+			}
+		});
 		searchFile.setBounds(5, 440, 100, 20);
 		menu.add(searchFile);
 		
