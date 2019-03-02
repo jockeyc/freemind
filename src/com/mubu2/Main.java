@@ -173,15 +173,15 @@ public class Main extends JPanel {
 			public boolean isCellEditable(int rowIndex, int ColIndex){
 	             return false;
 	            }
-			public Component prepareRenderer(TableCellRenderer renderer,int row, int column) 
-			{
-					Component c = super.prepareRenderer(renderer, row, column);
-					if (c instanceof JComponent) 
-					{
-						((JComponent) c).setOpaque(false);
-					}
-					return c;
-			}
+//			public Component prepareRenderer(TableCellRenderer renderer,int row, int column) 
+//			{
+//					Component c = super.prepareRenderer(renderer, row, column);
+//					if (c instanceof JComponent) 
+//					{
+//						((JComponent) c).setOpaque(false);
+//					}
+//					return c;
+//			}
 	    };
 	    table.setOpaque(false); // 设置jtable本身为透明的
 		table.setFont(new Font("宋体",Font.PLAIN,15));

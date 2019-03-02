@@ -154,6 +154,7 @@ public class ButtonHandler implements ActionListener
 			}
 			
 			if(idx != -1) {
+				System.out.println(idx);
 				table.setRowSelectionInterval(idx, idx);
 			}
 			
