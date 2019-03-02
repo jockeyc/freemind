@@ -22,6 +22,7 @@ public class RenameDialog extends JDialog{
 	DefaultTableModel model;
 	int index;
 	
+	
 	public RenameDialog(JFrame jFrame) {
 		super(jFrame,true);
 		setBounds(new Rectangle(150, 300, 300, 100));
@@ -42,6 +43,7 @@ public class RenameDialog extends JDialog{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				String newFileName = textField.getText();
+			
 				String path = model.getValueAt(index, 2).toString();
 				String FileName = model.getValueAt(index, 0).toString();
 				fileHandler.rename(new File(path), FileName, newFileName);

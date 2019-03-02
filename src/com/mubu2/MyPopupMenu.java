@@ -1,7 +1,5 @@
 package com.mubu2;
 
-import java.awt.Color;
-import java.awt.Component;
 import java.awt.Font;
 import java.awt.MenuItem;
 import java.awt.PopupMenu;
@@ -53,18 +51,15 @@ public class MyPopupMenu extends JPopupMenu{
 	private void initMenuItem() {
 		// TODO Auto-generated method stub
 		Font font=new Font("宋体",Font.PLAIN,15);
-		menuItem1.setText("·打开");
+		menuItem1.setText("打开");
 		menuItem1.setFont(font);
-		menuItem1.setBackground(Color.WHITE);
-		menuItem2.setText("·新建");
-		menuItem2.setBackground(Color.WHITE);
+		menuItem2.setText("新建");
 		menuItem2.setFont(font);
-		menuItem3.setText("·删除");
+		menuItem3.setText("删除");
 		menuItem3.setFont(font);
-		menuItem3.setBackground(Color.WHITE);
-		menuItem4.setText("·重命名");
+		menuItem4.setText("重命名");
 		menuItem4.setFont(font);
-		menuItem4.setBackground(Color.WHITE);
+		
 		//右键菜单打开
 		menuItem1.addActionListener(new ActionListener() {
 			
@@ -114,8 +109,6 @@ public class MyPopupMenu extends JPopupMenu{
 		add(menuItem2);
 		add(menuItem3);
 		add(menuItem4);
-//		Component
-		this.setBackground(Color.WHITE);
 		
 	}
 	
