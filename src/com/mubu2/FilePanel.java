@@ -276,6 +276,7 @@ public class FilePanel extends JPanel {
 		try
 		{
 			File data=new File(path);
+			textArea_1.setText(data.getName());
 			InputStreamReader reader = new InputStreamReader(  
 					new FileInputStream(data)); // 建立一个输入流对象reader  
 			@SuppressWarnings("resource")

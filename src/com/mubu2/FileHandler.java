@@ -6,6 +6,7 @@ import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -39,22 +40,31 @@ public class FileHandler {
 	 * 描述：新建一个文件
 	 * 参数：父目录、文件名
 	 */
+	
 	void create(File parent,String fileName) {
-		File file = new File(parent,fileName);
-		if(!file.exists()) {
-			try {
-				file.createNewFile();
-				Item_file item = getItem(file);
-		        
-		        data.add(item);
-		        data.push();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}else {
-			JOptionPane.showMessageDialog(null, "该文件已经存在", "文件名冲突", JOptionPane.OK_OPTION);
-		}
+		JFileChooser jfc=new JFileChooser();
+		File file = null;
+		
+		if(jfc.showSaveDialog(null) == JFileChooser.APPROVE_OPTION){
+            file=jfc.getSelectedFile();
+            
+            if(!file.exists()) {
+            	try {
+					file.createNewFile();
+					Item_file item = getItem(file);
+					
+					data.add(item);
+			        data.push();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+            }else {
+    			JOptionPane.showMessageDialog(null, "该文件已经存在", "文件名冲突", JOptionPane.OK_OPTION);
+    		}
+        }else {
+        	System.out.println("No file is selected!");
+        }
 	}
 	
 	/*
