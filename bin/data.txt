@@ -54,7 +54,9 @@ bayes.txt	2018-12-19 19:35:16	I:\
 bayes.txt	2018-12-19 19:35:16	I:\	
 test11.txt	2019-02-26 21:35:38	C:\Users\qingbo\Desktop	
 test.txt	2019-03-01 22:30:51	C:\Users\kuro\Desktop	
-123456.text	2019-03-02 00:26:00	C:\Users\kuro\Desktop	
+123456.txt	2019-03-02 00:26:00	C:\Users\kuro\Desktop	
 123.txt	2019-03-02 13:52:11	C:\Users\kuro\Desktop	
 abc.txt	1970-01-01 08:00:00	C:\Users\kuro\Desktop\abc.txt	
 abc.txt	1970-01-01 08:00:00	C:\Users\kuro\Desktop\abc.txt	
+123456.text	2019-03-02 15:09:38	C:\Users\kuro\Desktop\123456.text	
+zxcvb	1970-01-01 08:00:00	C:\Users\kuro\Desktop\zxcvb	

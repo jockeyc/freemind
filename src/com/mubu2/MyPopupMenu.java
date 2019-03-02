@@ -38,6 +38,7 @@ public class MyPopupMenu extends JPopupMenu{
 	int index;
 	String path;
 	String fileName;
+	String newFileName;
 	
 	
 	public MyPopupMenu() {
@@ -59,7 +60,7 @@ public class MyPopupMenu extends JPopupMenu{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				System.out.println("打开"+path+fileName);
 				fileHandler.open(jFrame, new File(path), fileName);
 			}
 		});
@@ -69,25 +70,31 @@ public class MyPopupMenu extends JPopupMenu{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				System.out.println("新建");
 				fileHandler.create(new File(path), fileName);
 			}
 		});
 		
-		//
+		//右键菜单删除
 		menuItem3.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				System.out.println("删除");
 				fileHandler.delete(new File(path), fileName);
 			}
 		});
 		
+		//右键菜单重命名
 		menuItem4.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String newFileName = "abc.txt";
-				fileHandler.rename(new File(path), fileName, newFileName);
+				System.out.println("重命名");
+				RenameDialog dialog = new RenameDialog(jFrame);
+				dialog.setIndex(index);
+				dialog.setModel(model);
+				dialog.setVisible(true);
 				
 			}
 		});
@@ -115,6 +122,7 @@ public class MyPopupMenu extends JPopupMenu{
 	public void setModel(DefaultTableModel model) {
 		this.model = model;
 	}
+	
 	
 	public void init() {
 		fileHandler.setModel(model);
