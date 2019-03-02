@@ -54,6 +54,7 @@ public class FilePanel_handler implements ActionListener {
 				fw.close();
 				jFrame.setContentPane(Main.getInstance(jFrame));
 				jFrame.validate();//Ë¢ÐÂ
+				
 			}
 			catch(Exception ee){
 				ee.printStackTrace();
