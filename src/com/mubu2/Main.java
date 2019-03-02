@@ -173,10 +173,12 @@ public class Main extends JPanel {
 				if(e.getClickCount()==2)
 				{
 					int count=table.getSelectedRow();
-					System.out.println(count);
 					/*
 					 * 添加想写的代码
 					 */
+					FileHandler fileHandler = new FileHandler();
+					Item_file item = fileHandler.data.files.get(count);
+					fileHandler.open(jFrame, new File(item.path), item.name);
 				}
 			}
 		});

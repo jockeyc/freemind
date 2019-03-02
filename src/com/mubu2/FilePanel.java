@@ -107,7 +107,6 @@ public class FilePanel extends JPanel {
 		public void mouseClicked(MouseEvent arg0) {
 		}
 	});
-	btnNewButton.setBackground(Color.WHITE);
 	btnNewButton.setIcon(new ImageIcon("src/img/tab.png"));
 	
 	JButton button_1 = new JButton("");

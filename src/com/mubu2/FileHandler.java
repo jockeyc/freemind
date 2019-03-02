@@ -88,9 +88,9 @@ public class FileHandler {
 					return;
 				}else {
 					data.delete(getItem(file));
+					file.renameTo(newFile);
 					data.add(getItem(newFile));
 					data.push();
-					file.renameTo(newFile);
 				}
 			}
 		}else {
