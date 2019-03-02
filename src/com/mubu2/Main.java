@@ -66,10 +66,10 @@ public class Main extends JPanel {
 		openFileDetail();
 		//设计界面
 		System.out.println("初始化对象");
-		setBackground(Color.WHITE);
+		Color menu_color=new Color(230,222,233);
 		setSize(700,800);
 		menu=new JPanel();
-		menu.setBackground(Color.WHITE);
+		menu.setBackground(menu_color);
 		menu.setLayout(null);
 		menu.setBorder(BorderFactory.createEtchedBorder());
 		menu.setFont(new Font("宋体",Font.PLAIN,15));
@@ -77,7 +77,7 @@ public class Main extends JPanel {
 		ImageIcon a =new ImageIcon("src/add.png");
 		a.setImage(a.getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT));
 		button_create=new JButton("新建",a);
-		button_create.setBackground(Color.WHITE);
+		button_create.setBackground(menu_color);
 		button_create.setFocusPainted(false);
 		button_create.setBorderPainted(false);
 		button_create.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -89,7 +89,7 @@ public class Main extends JPanel {
 		a =new ImageIcon("src/folder_open.png");
 		a.setImage(a.getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT));
 		button_open=new JButton("打开",a);
-		button_open.setBackground(Color.WHITE);
+		button_open.setBackground(menu_color);
 		button_open.setFocusPainted(false);
 		button_open.setBorderPainted(false);
 		button_open.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -101,7 +101,7 @@ public class Main extends JPanel {
 		a =new ImageIcon("src/search.png");
 		a.setImage(a.getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT));
 		button_pages=new JButton("查找",a);
-		button_pages.setBackground(Color.WHITE);
+		button_pages.setBackground(menu_color);
 		button_pages.setFocusPainted(false);
 		button_pages.setBorderPainted(false);
 		button_pages.setHorizontalTextPosition(SwingConstants.CENTER);

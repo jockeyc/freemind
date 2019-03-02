@@ -276,10 +276,11 @@ public class FilePanel extends JPanel {
 		try
 		{
 			File data=new File(path);
-			textArea_1.setText(data.getName());
+			String title=data.getName();
+			title=title.substring(0,title.length()-4);
+			textArea_1.setText(title);
 			InputStreamReader reader = new InputStreamReader(  
 					new FileInputStream(data)); // 建立一个输入流对象reader  
-			@SuppressWarnings("resource")
 			BufferedReader br = new BufferedReader(reader); // 建立一个对象，它把文件内容转成计算机能读懂的语言  
 			String line=br.readLine();
 			while(line!=null)

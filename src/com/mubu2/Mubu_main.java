@@ -20,7 +20,6 @@ public class Mubu_main extends JFrame {
 	{
 		setBackground(Color.WHITE);
 		setSize(700,850);
-
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);    //置窗口是否可以关
 		setContentPane(Main.getInstance(this));
 		System.out.println("主页面");
