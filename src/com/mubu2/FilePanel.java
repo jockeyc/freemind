@@ -139,8 +139,13 @@ public class FilePanel extends JPanel {
 				}
 			}
 			
-			if(line.indexOf('¡¤') != -1) {
+			if(line.indexOf('¡ð') != -1) {
+				int tmp = right;
 				while(right < text.length() ) {
+					if(text.charAt(right) == '¡ð') {
+						right = tmp;
+						break;
+					}
 					if(text.charAt(right++) == '\n') {
 						break;
 					}
