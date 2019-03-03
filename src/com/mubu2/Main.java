@@ -18,6 +18,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.util.Scanner;
@@ -257,15 +258,10 @@ public class Main extends JPanel {
 		int count,i=0;
 		try 
 		{
-			File data=new File("src/data.txt");
-			InputStreamReader reader = new InputStreamReader(  
-                    new FileInputStream(data)); // 建立一个输入流对象reader  
-            BufferedReader br = new BufferedReader(reader); // 建立一个对象，它把文件内容转成计算机能读懂的语言  
+            BufferedReader br = new BufferedReader(new FileReader("src/data.txt")); // 建立一个对象，它把文件内容转成计算机能读懂的语言  
             String line = "";  
             line = br.readLine();
-            System.out.println(line);
             count=Integer.parseInt(line);
-            System.out.println(count);
             item_file=new  Item_file[count];
             
             line=br.readLine();
@@ -286,10 +282,8 @@ public class Main extends JPanel {
 	//用item_file[]初始化文件列表
 	void createTable()
 	{
-		System.out.println("here");
 		Vector data=new Vector();
 		int count=item_file.length;
-		System.out.println(item_file.length);
 		for(int i=0;i<count;i++)
 		{
 			Vector<String> d=new Vector<String>();
