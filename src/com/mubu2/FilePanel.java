@@ -108,52 +108,7 @@ public class FilePanel extends JPanel {
 	button_1.setIcon(new ImageIcon("src/img/refresh.png"));
 	
 	JButton button_2 = new JButton("");
-	button_2.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent arg0) {
-			String text = textField.getText();
-			Scanner in = null;
-			in = new Scanner(text);
-			
-			int pos = textField.getCaretPosition();
-			int now = 0, left = 0, right = 0;
-			String line = "";
-			
-			while(in.hasNext()) {
-				line = in.nextLine();
-				now += line.length()+1;
-				if(now >= pos) {
-					left = now-line.length()-1;
-					right = now;
-					break;
-				}
-			}
-			
-			if(line.indexOf('°§') != -1) {
-				while(right < text.length() ) {
-					if(text.charAt(right++) == '\n') {
-						break;
-					}
-				}
-			}else {
-				int cnt = 0;
-				while(left > 0) {
-					if(text.charAt(left) == '\n') {
-						cnt++;
-					}
-					if(cnt == 2) {
-						left++;
-						break;
-					}
-					left--;
-				}
-			}
-			int len = text.length();
-			text = text.substring(0, left) + text.substring(Math.min(right, len),len);
-			textField.setText(text);
-			
-			in.close();
-		}
-	});
+	button_2.setActionCommand("delete");
 	button_2.setToolTipText("\u5220\u9664\u9879");
 	button_2.setIcon(new ImageIcon("src/img/delete.png"));
 	
@@ -334,6 +289,7 @@ public class FilePanel extends JPanel {
 	button_3.addActionListener(filePanelButtonHandler);//ºı…ŸÀıΩ¯
 	button_6.addActionListener(filePanelButtonHandler);//∏ﬂ¡¡
 	button_7.addActionListener(filePanelButtonHandler);//±‡º≠√Ë ˆ
+	button_2.addActionListener(filePanelButtonHandler);//…æ≥˝œÓ
 	
 	filePanelKeyListener = new FilePanelKeyListener();
 	filePanelKeyListener.setTextField(textField);

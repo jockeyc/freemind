@@ -3,6 +3,7 @@ package com.mubu2;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Scanner;
 
 import javax.swing.JTextArea;
 import javax.swing.text.BadLocationException;
@@ -113,6 +114,50 @@ public class FilePanelButtonHandler implements ActionListener{
 			textField.getFocusListeners();
 			textField.setCaretPosition(end);
 			break;
+		}
+		case "delete":{
+			String text = textField.getText();
+			Scanner in = null;
+			in = new Scanner(text);
+			
+			int pos = textField.getCaretPosition();
+			int now = 0, left = 0, right = 0;
+			String line = "";
+			
+			while(in.hasNext()) {
+				line = in.nextLine();
+				now += line.length()+1;
+				if(now >= pos) {
+					left = now-line.length()-1;
+					right = now;
+					break;
+				}
+			}
+			
+			if(line.indexOf('¡¤') != -1) {
+				while(right < text.length() ) {
+					if(text.charAt(right++) == '\n') {
+						break;
+					}
+				}
+			}else {
+				int cnt = 0;
+				while(left > 0) {
+					if(text.charAt(left) == '\n') {
+						cnt++;
+					}
+					if(cnt == 2) {
+						left++;
+						break;
+					}
+					left--;
+				}
+			}
+			int len = text.length();
+			text = text.substring(0, left) + text.substring(Math.min(right, len),len);
+			textField.setText(text);
+			
+			in.close();
 		}
 			
 			
