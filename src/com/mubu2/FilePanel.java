@@ -29,6 +29,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.Timer;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.text.BadLocationException;
@@ -66,8 +67,13 @@ public class FilePanel extends JPanel {
 	JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 	
 	JButton btnNewButton_1 = new JButton("保存并退出");
-	JLabel label = new JLabel("\u5F53\u524D\u5317\u4EAC\u65F6\u95F4\uFF1A00:00:00");
+	JLabel label = new JLabel("\u5F53\u524D\u5317\u4EAC\u65F6\u95F4\uFF1A");
 	label.setFont(new Font("宋体", Font.BOLD, 15));
+	TimerHandler timerHandler = new TimerHandler();
+	timerHandler.setjLabel(label);
+	Timer clock = new Timer(1000,timerHandler);
+	clock.start();
+	
 	GroupLayout gl_contentPane = new GroupLayout(contentPane);
 	gl_contentPane.setHorizontalGroup(
 		gl_contentPane.createParallelGroup(Alignment.TRAILING)
@@ -108,52 +114,7 @@ public class FilePanel extends JPanel {
 	button_1.setIcon(new ImageIcon("src/img/refresh.png"));
 	
 	JButton button_2 = new JButton("");
-	button_2.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent arg0) {
-			String text = textField.getText();
-			Scanner in = null;
-			in = new Scanner(text);
-			
-			int pos = textField.getCaretPosition();
-			int now = 0, left = 0, right = 0;
-			String line = "";
-			
-			while(in.hasNext()) {
-				line = in.nextLine();
-				now += line.length()+1;
-				if(now >= pos) {
-					left = now-line.length()-1;
-					right = now;
-					break;
-				}
-			}
-			
-			if(line.indexOf('·') != -1) {
-				while(right < text.length() ) {
-					if(text.charAt(right++) == '\n') {
-						break;
-					}
-				}
-			}else {
-				int cnt = 0;
-				while(left > 0) {
-					if(text.charAt(left) == '\n') {
-						cnt++;
-					}
-					if(cnt == 2) {
-						left++;
-						break;
-					}
-					left--;
-				}
-			}
-			int len = text.length();
-			text = text.substring(0, left) + text.substring(Math.min(right, len),len);
-			textField.setText(text);
-			
-			in.close();
-		}
-	});
+	button_2.setActionCommand("delete");
 	button_2.setToolTipText("\u5220\u9664\u9879");
 	button_2.setIcon(new ImageIcon("src/img/delete.png"));
 	
@@ -161,22 +122,6 @@ public class FilePanel extends JPanel {
 	button_3.setActionCommand("减少缩进");
 	button_3.setToolTipText("\u51CF\u5C11\u7F29\u8FDB");
 	button_3.setIcon(new ImageIcon("src/img/r_tab.png"));
-	
-	JButton button_4 = new JButton("");
-	button_4.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent arg0) {
-		}
-	});
-	button_4.setToolTipText("\u6DFB\u52A0\u590D\u9009\u6846");
-	button_4.setIcon(new ImageIcon("src/img/insert_img.png"));
-	
-	JButton button_5 = new JButton("");
-	button_5.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent arg0) {
-		}
-	});
-	button_5.setToolTipText("\u5B8C\u6210");
-	button_5.setIcon(new ImageIcon("src/img/finished.PNG"));
 	
 	JButton button_6 = new JButton("");
 	button_6.setActionCommand("高亮");
@@ -187,62 +132,34 @@ public class FilePanel extends JPanel {
 	button_7.setActionCommand("add_description");
 	button_7.setToolTipText("\u7F16\u8F91\u63CF\u8FF0");
 	button_7.setIcon(new ImageIcon("src/img/describe.PNG"));
-	
-	JButton button_8 = new JButton("");
-	button_8.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent arg0) {
-		}
-	});
-	button_8.setToolTipText("\u63D2\u5165\u56FE\u7247");
-	button_8.setIcon(new ImageIcon("src/img/gxk.png"));
-	
-	JButton button_9 = new JButton("");
-	button_9.setToolTipText("\u5C06\u601D\u7EF4\u5BFC\u56FE\u5BFC\u51FA\u4E3A\u56FE\u7247");
-	button_9.setIcon(new ImageIcon("src/img/save_picture.png"));
-	button_9.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent arg0) {
-		}
-	});
 	GroupLayout gl_panel = new GroupLayout(panel);
 	gl_panel.setHorizontalGroup(
 		gl_panel.createParallelGroup(Alignment.LEADING)
 			.addGroup(gl_panel.createSequentialGroup()
 				.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-					.addComponent(btnNewButton, 0, 0, Short.MAX_VALUE)
-					.addComponent(button_4, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-					.addComponent(button_5, GroupLayout.DEFAULT_SIZE, 69, Short.MAX_VALUE)
-					.addComponent(button_6, GroupLayout.DEFAULT_SIZE, 69, Short.MAX_VALUE)
-					.addComponent(button_7, GroupLayout.DEFAULT_SIZE, 69, Short.MAX_VALUE)
-					.addComponent(button_3, GroupLayout.PREFERRED_SIZE, 69, Short.MAX_VALUE)
-					.addComponent(button_1, GroupLayout.DEFAULT_SIZE, 69, Short.MAX_VALUE)
-					.addComponent(button_2, GroupLayout.PREFERRED_SIZE, 69, Short.MAX_VALUE)
-					.addComponent(button_8, GroupLayout.DEFAULT_SIZE, 69, Short.MAX_VALUE)
-					.addComponent(button_9, GroupLayout.DEFAULT_SIZE, 69, Short.MAX_VALUE))
+					.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)
+					.addComponent(button_1, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)
+					.addComponent(button_2, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)
+					.addComponent(button_3, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)
+					.addComponent(button_6, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)
+					.addComponent(button_7, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE))
 				.addContainerGap())
 	);
 	gl_panel.setVerticalGroup(
 		gl_panel.createParallelGroup(Alignment.LEADING)
 			.addGroup(gl_panel.createSequentialGroup()
-				.addComponent(button_2, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
+				.addComponent(button_2, GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
 				.addPreferredGap(ComponentPlacement.RELATED)
-				.addComponent(button_1, GroupLayout.PREFERRED_SIZE, 51, GroupLayout.PREFERRED_SIZE)
+				.addComponent(button_1, GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
 				.addPreferredGap(ComponentPlacement.UNRELATED)
-				.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 51, GroupLayout.PREFERRED_SIZE)
-				.addGap(1)
-				.addComponent(button_3, GroupLayout.PREFERRED_SIZE, 51, GroupLayout.PREFERRED_SIZE)
-				.addGap(1)
-				.addComponent(button_4, GroupLayout.PREFERRED_SIZE, 51, GroupLayout.PREFERRED_SIZE)
-				.addGap(2)
-				.addComponent(button_5, GroupLayout.PREFERRED_SIZE, 51, GroupLayout.PREFERRED_SIZE)
-				.addPreferredGap(ComponentPlacement.RELATED)
-				.addComponent(button_6, GroupLayout.PREFERRED_SIZE, 51, GroupLayout.PREFERRED_SIZE)
-				.addPreferredGap(ComponentPlacement.RELATED)
-				.addComponent(button_7, GroupLayout.PREFERRED_SIZE, 51, GroupLayout.PREFERRED_SIZE)
+				.addComponent(btnNewButton, GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
 				.addGap(18)
-				.addComponent(button_8, GroupLayout.PREFERRED_SIZE, 51, GroupLayout.PREFERRED_SIZE)
-				.addGap(27)
-				.addComponent(button_9, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
-				.addContainerGap(195, Short.MAX_VALUE))
+				.addComponent(button_3, GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
+				.addGap(18)
+				.addComponent(button_6, GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
+				.addGap(18)
+				.addComponent(button_7, GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
+				.addGap(299))
 	);
 	panel.setLayout(gl_panel);
 	
@@ -334,6 +251,7 @@ public class FilePanel extends JPanel {
 	button_3.addActionListener(filePanelButtonHandler);//减少缩进
 	button_6.addActionListener(filePanelButtonHandler);//高亮
 	button_7.addActionListener(filePanelButtonHandler);//编辑描述
+	button_2.addActionListener(filePanelButtonHandler);//删除项
 	
 	filePanelKeyListener = new FilePanelKeyListener();
 	filePanelKeyListener.setTextField(textField);
