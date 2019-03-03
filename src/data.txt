@@ -1,4 +1,2 @@
-3
-1	2	3
-go.txt	2019-03-03 18:02:09	C:\Users\qingbo\Desktop
-asfsafsa.txt	2019-03-03 18:12:21	C:\Users\kuro\Desktop
+1
+go.txt	2019-03-03 19:27:46	C:\Users\qingbo\Desktop
