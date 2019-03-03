@@ -284,8 +284,10 @@ public class Main extends JPanel {
 	//用item_file[]初始化文件列表
 	void createTable()
 	{
+		System.out.println("here");
 		Vector data=new Vector();
 		int count=item_file.length;
+		System.out.println(item_file.length);
 		for(int i=0;i<count;i++)
 		{
 			Vector<String> d=new Vector<String>();

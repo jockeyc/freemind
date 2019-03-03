@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -14,6 +15,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.util.Scanner;
+
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -105,6 +108,52 @@ public class FilePanel extends JPanel {
 	button_1.setIcon(new ImageIcon("src/img/refresh.png"));
 	
 	JButton button_2 = new JButton("");
+	button_2.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent arg0) {
+			String text = textField.getText();
+			Scanner in = null;
+			in = new Scanner(text);
+			
+			int pos = textField.getCaretPosition();
+			int now = 0, left = 0, right = 0;
+			String line = "";
+			
+			while(in.hasNext()) {
+				line = in.nextLine();
+				now += line.length()+1;
+				if(now >= pos) {
+					left = now-line.length()-1;
+					right = now;
+					break;
+				}
+			}
+			
+			if(line.indexOf('¡¤') != -1) {
+				while(right < text.length() ) {
+					if(text.charAt(right++) == '\n') {
+						break;
+					}
+				}
+			}else {
+				int cnt = 0;
+				while(left > 0) {
+					if(text.charAt(left) == '\n') {
+						cnt++;
+					}
+					if(cnt == 2) {
+						left++;
+						break;
+					}
+					left--;
+				}
+			}
+			int len = text.length();
+			text = text.substring(0, left) + text.substring(Math.min(right, len),len);
+			textField.setText(text);
+			
+			in.close();
+		}
+	});
 	button_2.setToolTipText("\u5220\u9664\u9879");
 	button_2.setIcon(new ImageIcon("src/img/delete.png"));
 	
