@@ -29,6 +29,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.Timer;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.text.BadLocationException;
@@ -66,8 +67,13 @@ public class FilePanel extends JPanel {
 	JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 	
 	JButton btnNewButton_1 = new JButton("保存并退出");
-	JLabel label = new JLabel("\u5F53\u524D\u5317\u4EAC\u65F6\u95F4\uFF1A00:00:00");
+	JLabel label = new JLabel("\u5F53\u524D\u5317\u4EAC\u65F6\u95F4\uFF1A");
 	label.setFont(new Font("宋体", Font.BOLD, 15));
+	TimerHandler timerHandler = new TimerHandler();
+	timerHandler.setjLabel(label);
+	Timer clock = new Timer(1000,timerHandler);
+	clock.start();
+	
 	GroupLayout gl_contentPane = new GroupLayout(contentPane);
 	gl_contentPane.setHorizontalGroup(
 		gl_contentPane.createParallelGroup(Alignment.TRAILING)
