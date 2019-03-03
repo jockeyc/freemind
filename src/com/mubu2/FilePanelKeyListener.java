@@ -13,9 +13,10 @@ public class FilePanelKeyListener implements KeyListener{
 			String text = textField.getText();
 			if(text.length()==1) {
 				text+="¡ð";
+				textField.setText(text);
+				textField.setCaretPosition(1);
 			}
-			textField.setText(text);
-			textField.setCaretPosition(1);
+			
 		}
 		// TODO Auto-generated method stub
 		
@@ -54,7 +55,10 @@ public class FilePanelKeyListener implements KeyListener{
 			textField.setCaretPosition(end+1);
 		}
 		if(e.getKeyCode()==8) {
-			textField.setCaretPosition(1);
+			String text = textField.getText();
+			if(text.length()==1) {
+				textField.setCaretPosition(1);
+			}
 		}
 	}
 
