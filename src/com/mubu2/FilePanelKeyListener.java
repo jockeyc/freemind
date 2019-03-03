@@ -45,6 +45,12 @@ public class FilePanelKeyListener implements KeyListener{
 			textField.setText(text);
 			textField.setCaretPosition(end+1);
 		}
+		if (e.getKeyCode() == 8) {
+			String text = textField.getText();
+			if(text.length()==0) {
+				textField.setText("¡ð");
+			}
+		}
 	}
 
 	@Override

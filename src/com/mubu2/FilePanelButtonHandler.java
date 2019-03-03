@@ -76,7 +76,7 @@ public class FilePanelButtonHandler implements ActionListener{
 			int count_tab=0;
 			String text = textField.getText();
 			int start=pos,end=pos;
-			if(text.charAt(start)=='\t') {
+			if(start!=text.length()&&text.charAt(start)=='\t') {
 				while(text.charAt(start)=='\t') start++;
 			}
 			else {
@@ -155,8 +155,8 @@ public class FilePanelButtonHandler implements ActionListener{
 			}
 			int len = text.length();
 			text = text.substring(0, left) + text.substring(Math.min(right, len),len);
-			if(text.length() == 0) {
-				text = "¡ð";
+			if(text.length()==0) {
+				text="¡ð";
 			}
 			textField.setText(text);
 			
