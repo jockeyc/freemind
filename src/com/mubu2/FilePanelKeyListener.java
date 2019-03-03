@@ -9,6 +9,14 @@ public class FilePanelKeyListener implements KeyListener{
 	JTextArea textField;
 	@Override
 	public void keyPressed(KeyEvent e) {
+		if(e.getKeyCode()==8) {
+			String text = textField.getText();
+			if(text.length()==1) {
+				text+="¡ð";
+			}
+			textField.setText(text);
+			textField.setCaretPosition(1);
+		}
 		// TODO Auto-generated method stub
 		
 	}
@@ -44,6 +52,9 @@ public class FilePanelKeyListener implements KeyListener{
 			text = sb.toString();
 			textField.setText(text);
 			textField.setCaretPosition(end+1);
+		}
+		if(e.getKeyCode()==8) {
+			textField.setCaretPosition(1);
 		}
 	}
 
