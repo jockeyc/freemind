@@ -34,6 +34,9 @@ import javax.swing.border.LineBorder;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultHighlighter;
 import javax.swing.text.DefaultHighlighter.DefaultHighlightPainter;
+
+import com.mubu2.Tree.TreePanel;
+
 import javax.swing.text.Highlighter;
 
 import java.awt.Dimension;
@@ -49,6 +52,7 @@ public class FilePanel extends JPanel {
 	ButtonHandler handler;
 	FilePanelButtonHandler filePanelButtonHandler;
 	FilePanelKeyListener filePanelKeyListener;
+	private TreePanel panel_2;
 	public FilePanel(JFrame jFrame,String path) 
 	{
 	setBackground(new Color(240, 248, 255));
@@ -103,9 +107,10 @@ public class FilePanel extends JPanel {
 	btnNewButton.setToolTipText("\u589E\u52A0\u7F29\u8FDB");
 	btnNewButton.setIcon(new ImageIcon("src/img/tab.png"));
 	
-	JButton button_1 = new JButton("");
-	button_1.setToolTipText("\u5237\u65B0\u601D\u7EF4\u5BFC\u56FE");
+	JButton button_1 = new JButton();
+	button_1.setToolTipText("转换");
 	button_1.setIcon(new ImageIcon("src/img/refresh.png"));
+	button_1.setActionCommand("转换");
 	
 	JButton button_2 = new JButton("");
 	button_2.addActionListener(new ActionListener() {
@@ -314,10 +319,21 @@ public class FilePanel extends JPanel {
 		text+="○";
 		textField.setText(text);
 	}
+	JPanel panel_2_m = new JPanel();
+	panel_2_m.setLayout(new BorderLayout(0, 0));
 	
-	JPanel panel_2 = new JPanel();
-	panel_2.setBackground(Color.WHITE);
-	tabbedPane.addTab("图形转化区", null, panel_2, null);
+	JScrollPane scrollPane_1 = new JScrollPane();
+	panel_2_m.add(scrollPane_1, BorderLayout.CENTER);
+	
+	panel_2=new TreePanel(); 
+	panel.setSize(100000,210000);
+    panel_2.setBackground(new Color(240, 248, 255)); 
+    panel_2.setGridColor(Color.white);  
+    panel_2.setLinkLineColor(Color.BLACK);  
+    panel_2.setStringColor(Color.BLACK);  
+    scrollPane_1.setColumnHeaderView(panel_2);
+    scrollPane_1.setViewportView(panel_2);
+	tabbedPane.addTab("图形转化区", null, panel_2_m, null);
 	contentPane.setLayout(gl_contentPane);
 
 	handler=new ButtonHandler();
@@ -330,10 +346,14 @@ public class FilePanel extends JPanel {
 	
 	filePanelButtonHandler = new FilePanelButtonHandler();
 	filePanelButtonHandler.setTextField(textField);
+	filePanelButtonHandler.settextArea_1(textArea_1);
+	filePanelButtonHandler.setpanel_2(panel_2);
 	btnNewButton.addActionListener(filePanelButtonHandler);//增加缩进
+	button_1.addActionListener(filePanelButtonHandler);//转换为思维导图
 	button_3.addActionListener(filePanelButtonHandler);//减少缩进
 	button_6.addActionListener(filePanelButtonHandler);//高亮
 	button_7.addActionListener(filePanelButtonHandler);//编辑描述
+	
 	
 	filePanelKeyListener = new FilePanelKeyListener();
 	filePanelKeyListener.setTextField(textField);
