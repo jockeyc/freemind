@@ -134,7 +134,7 @@ public class TreePanel extends JPanel {
         	gridWidth=n.toString().length()*30;
         	g.fillRect(x, y, gridWidth, gridHeight_0);
         	g.setColor(stringColor);  
-        	g.setFont(new Font("宋体", Font.BOLD,28));
+        	g.setFont(new Font("宋体", Font.BOLD,20));
         	g.drawString(n.toString(),x,y+gridHeight);       //画结点的名字 
         	
         }
@@ -142,7 +142,7 @@ public class TreePanel extends JPanel {
         	gridWidth=n.toString().length()*24;
         	g.fillRect(x, y, gridWidth, gridHeight_1);
         	g.setColor(stringColor);  
-        	g.setFont(new Font("宋体", Font.BOLD, 25));
+        	g.setFont(new Font("宋体", Font.BOLD, 18));
         	g.drawString(n.toString(),x+3, y+gridHeight_1-10);       //画结点的名字 
         	
 
@@ -151,7 +151,7 @@ public class TreePanel extends JPanel {
         	gridWidth=n.toString().length()*20;
         	g.fillRect(x, y, gridWidth, gridHeight);
         	g.setColor(stringColor);  
-        	g.setFont(new Font("宋体",Font.ROMAN_BASELINE, 20));
+        	g.setFont(new Font("宋体",Font.ROMAN_BASELINE, 15));
         	g.drawString(n.toString(), x+2, y+25);//gridHeight_0);       //画结点的名字 
         	
         }
