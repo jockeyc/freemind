@@ -6,6 +6,8 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
@@ -43,6 +45,7 @@ public class FilePanel extends JPanel {
 	private JTextArea textField;
 	ButtonHandler handler;
 	FilePanelButtonHandler filePanelButtonHandler;
+	FilePanelKeyListener filePanelKeyListener;
 	public FilePanel(JFrame jFrame,String path) 
 	{
 	setBackground(new Color(240, 248, 255));
@@ -132,10 +135,7 @@ public class FilePanel extends JPanel {
 	button_6.setIcon(new ImageIcon("src/img/highlight.png"));
 	
 	JButton button_7 = new JButton("");
-	button_7.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent arg0) {
-		}
-	});
+	button_7.setActionCommand("add_description");
 	button_7.setToolTipText("\u7F16\u8F91\u63CF\u8FF0");
 	button_7.setIcon(new ImageIcon("src/img/describe.PNG"));
 	
@@ -260,7 +260,11 @@ public class FilePanel extends JPanel {
 			e.printStackTrace();
 		}
 	}
-
+	String text = textField.getText();
+	if(text.length()==0) {
+		text+="○";
+		textField.setText(text);
+	}
 	
 	JPanel panel_2 = new JPanel();
 	panel_2.setBackground(Color.WHITE);
@@ -280,6 +284,11 @@ public class FilePanel extends JPanel {
 	btnNewButton.addActionListener(filePanelButtonHandler);//增加缩进
 	button_3.addActionListener(filePanelButtonHandler);//减少缩进
 	button_6.addActionListener(filePanelButtonHandler);//高亮
+	button_7.addActionListener(filePanelButtonHandler);//编辑描述
+	
+	filePanelKeyListener = new FilePanelKeyListener();
+	filePanelKeyListener.setTextField(textField);
+	textField.addKeyListener(filePanelKeyListener);
 	
 	
 	add(contentPane);

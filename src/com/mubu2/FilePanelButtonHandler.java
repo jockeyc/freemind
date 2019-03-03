@@ -39,34 +39,79 @@ public class FilePanelButtonHandler implements ActionListener{
 		}		
 		case "增加缩进":{
 			int pos = textField.getCaretPosition();
+			System.out.println(pos);
 			String text = textField.getText();
+			//if(pos == text.length() || text.charAt(pos) == '\n') pos--;
 			int start=pos;
-			if(text.charAt(start)=='\n') start--;
-			while(start > 0 && text.charAt(start)!='\n') start--;
+			while(start > 0 && text.charAt(start-1)!='\n') start--;
 			System.out.println("pos"+pos+" "+"start"+start);
 			StringBuilder sb = new StringBuilder(text);
 			sb.insert(start, "\t");
 			text = sb.toString();
 			textField.setText(text);
-			textField.setCaretPosition(pos);
+			textField.setCaretPosition(start);
 			break;
 		}
 		case "减少缩进":{
 			int pos = textField.getCaretPosition();
+			System.out.println(pos);
 			String text = textField.getText();
+			//if(pos == text.length() || text.charAt(pos) == '\n') pos--;
 			int start=pos;
-			if(text.charAt(start)=='\n') start--;
-			while(start > 0 && text.charAt(start)!='\n') start--;
+			while(start > 0 && text.charAt(start-1)!='\n') start--;
 			System.out.println("pos"+pos+" "+"start"+start);
 			StringBuilder sb = new StringBuilder(text);
-			if( text.charAt(start)=='\t') {
+			if( start!=text.length()&&text.charAt(start)=='\t') {
 				System.out.println("start");
 				sb.delete(start, start+1);
 			}
-				
 			text = sb.toString();
 			textField.setText(text);
-			textField.setCaretPosition(pos);
+			textField.setCaretPosition(start);
+			break;
+		}
+		case "add_description":{
+			int pos = textField.getCaretPosition();
+			int count_tab=0;
+			String text = textField.getText();
+			int start=pos,end=pos;
+			if(text.charAt(start)=='\t') {
+				while(text.charAt(start)=='\t') start++;
+			}
+			else {
+				while(start > 0 && text.charAt(start-1)!='\t'&&text.charAt(start-1)!='\n') start--;
+			}
+			while(start > 0 && text.charAt(start-1)!='\n') {
+				start--;
+				count_tab++;
+			}
+			System.out.print("count:"+count_tab);
+			while(end < text.length() && text.charAt(end) != '\n') end++;
+			System.out.println("pos"+pos+" "+"start"+start);
+			StringBuilder sb = new StringBuilder(text);
+			if(end==text.length()) {
+				sb.append("\n");
+				for (int i = 0; i < count_tab; i++) {
+						sb.append("\t");
+				}
+				
+			}
+			else {
+				for (int i = 0; i < count_tab; i++) {
+					try {
+						sb.insert(end+1, "\t");
+						end++;
+					}
+					catch (Exception e1) {
+						// TODO: handle exception
+					}	
+				}
+				sb.insert(end+1, "\n");
+			}
+			text = sb.toString();
+			textField.setText(text);
+			textField.getFocusListeners();
+			textField.setCaretPosition(end);
 			break;
 		}
 			
