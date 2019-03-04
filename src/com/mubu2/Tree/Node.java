@@ -148,6 +148,5 @@ public class Node {
             preOrder(index);
         }
         return ;
-    }
-	
+    }	
 }  

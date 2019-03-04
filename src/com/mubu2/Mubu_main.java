@@ -8,7 +8,6 @@ public class Mubu_main extends JFrame {
 	/**
 	 *@function:主页面，两个jpanel a,b，在一个jframe中切换
 	 */
-
 	private static Mubu_main single=null;
 	public static Mubu_main getInstance(){
         if(single==null)

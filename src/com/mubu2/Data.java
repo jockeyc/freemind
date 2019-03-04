@@ -3,10 +3,8 @@ package com.mubu2;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.sql.Date;
 import java.util.Scanner;
 import java.util.Vector;
 
@@ -14,10 +12,8 @@ import javax.swing.table.DefaultTableModel;
 
 public class Data {
 	int count;
-
 	Vector<Item_file> files = new Vector<Item_file>();
 	DefaultTableModel model = new DefaultTableModel();
-	
 	public void setModel(DefaultTableModel model) {
 		this.model = model;
 	}
@@ -45,7 +41,6 @@ public class Data {
 	void push(String path) {
 		File file = new File(path);
 		if(!file.exists()) return;
-		
 		BufferedWriter out = null;
 		try {
 			out = new BufferedWriter(new FileWriter(file));
@@ -53,7 +48,6 @@ public class Data {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 		try {
 			count =files.size();
 			out.write("" + count);
@@ -69,7 +63,6 @@ public class Data {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 		Vector vec = new Vector();
 		
 		for(int i=0;i<files.size();i++) {
@@ -80,13 +73,11 @@ public class Data {
 			tmp.add(files.get(i).path);
 			vec.add(tmp);
 		}
-
 		Vector<String> colName = new Vector<String>();
 		colName.add("");
 		colName.add("");
 		colName.add("");
 		model.setDataVector(vec, colName);
-
 	}
 	
 	void push() {
@@ -101,7 +92,6 @@ public class Data {
 		for(int i=0;i<files.size();i++) {
 			if(files.get(i).equals(item)) {
 				files.remove(i);
-
 				i--;
 			}
 			
@@ -112,8 +102,6 @@ public class Data {
 			System.out.println(files.get(i).name + "\t" + files.get(i).time + "\t" +files.get(i).path);
 		}
 	}
-	
-	
 	public Data(String path) {
 		init(path);
 	}

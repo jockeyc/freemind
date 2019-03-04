@@ -2,31 +2,23 @@ package com.mubu2;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.InputEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
-import java.nio.file.Files;
-import java.util.Scanner;
 import java.util.Vector;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -36,7 +28,6 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
 
 public class Main extends JPanel {
 	/**
@@ -45,7 +36,6 @@ public class Main extends JPanel {
 	private static final long serialVersionUID = 1L;
 	
 	JPanel menu;     //按钮列表
-	//我只搞了三个按钮，可以酌情添加
 	JButton button_create;  //新建按钮
 	JButton button_open;    //打开按钮
 	JButton button_pages;   //查找按钮
@@ -65,7 +55,6 @@ public class Main extends JPanel {
 		//读取已存储数据
 		openFileDetail();
 		//设计界面
-		System.out.println("初始化对象");
 		Color menu_color=new Color(230,222,233);
 		setSize(700,800);
 		menu=new JPanel();
@@ -112,10 +101,7 @@ public class Main extends JPanel {
 		
 		searchFile=new JTextField("请输入文件名");
 		searchFile.addFocusListener(new FocusListener() {
-			
-			@Override
 			public void focusLost(FocusEvent e) {
-				// TODO Auto-generated method stub
 				JTextField textField = (JTextField)e.getSource();
 				String temp = textField.getText();
 				if(temp.equals("")) {
@@ -124,9 +110,7 @@ public class Main extends JPanel {
 				}
 			}
 			
-			@Override
 			public void focusGained(FocusEvent e) {
-				// TODO Auto-generated method stub
 				JTextField textField = (JTextField)e.getSource();
 				String temp = textField.getText();
 				if(temp.equals("请输入文件名")) {
@@ -172,16 +156,7 @@ public class Main extends JPanel {
 
 			public boolean isCellEditable(int rowIndex, int ColIndex){
 	             return false;
-	            }
-//			public Component prepareRenderer(TableCellRenderer renderer,int row, int column) 
-//			{
-//					Component c = super.prepareRenderer(renderer, row, column);
-//					if (c instanceof JComponent) 
-//					{
-//						((JComponent) c).setOpaque(false);
-//					}
-//					return c;
-//			}
+	        }
 	    };
 	    table.setOpaque(false); // 设置jtable本身为透明的
 		table.setFont(new Font("宋体",Font.PLAIN,15));
@@ -202,9 +177,6 @@ public class Main extends JPanel {
 				if(e.getClickCount()==2)
 				{
 					int count=table.getSelectedRow();
-					/*
-					 * 添加想写的代码
-					 */
 					FileHandler fileHandler = new FileHandler();
 					System.out.println(count + " " + fileHandler.data.files.size());
 					Item_file item = fileHandler.data.files.get(count);
@@ -253,7 +225,6 @@ public class Main extends JPanel {
 	}
 	//打开记录文件data.txt并保存在item_file[]中
 	private void openFileDetail() {
-		// TODO 自动生成的方法存根
 		int count,i=0;
 		try 
 		{
@@ -309,9 +280,4 @@ public class Main extends JPanel {
         panel_02 = new Main(jFrame);
         return panel_02;
     }
-
-	Item_file[] getItem_file()
-	{
-		return item_file;
-	}
 }

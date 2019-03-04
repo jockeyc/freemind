@@ -18,13 +18,10 @@ public class FilePanelKeyListener implements KeyListener{
 			}
 			
 		}
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
 		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 			System.out.println("»Ø³µ");
 			int pos = textField.getCaretPosition()-1;
@@ -63,10 +60,7 @@ public class FilePanelKeyListener implements KeyListener{
 	}
 
 	@Override
-	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void keyTyped(KeyEvent e) {}
 	
 	public void setTextField(JTextArea textField) {
 		this.textField = textField;

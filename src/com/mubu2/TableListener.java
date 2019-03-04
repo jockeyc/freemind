@@ -1,7 +1,5 @@
 package com.mubu2;
 
-import java.awt.MenuItem;
-import java.awt.PopupMenu;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
@@ -11,40 +9,28 @@ import java.util.Scanner;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import javax.swing.Popup;
 
 public class TableListener implements MouseListener {
-	
 	JFrame jFrame;
 	JTable jTable;
-	
 	public void setJframe(JFrame jFrame) {
 		this.jFrame = jFrame;
 	}
-	
 	public void setJtable(JTable jTable) {
 		this.jTable = jTable;
 	}
-	
 	public TableListener(JFrame jFrame,JTable jTable) {
 		this.jFrame = jFrame;
 		this.jTable = jTable;
 	}
-	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
 		if(e.getClickCount()==2)
 		{
 			int count=jTable.getSelectedRow();
-			System.out.println(count);
-			/*
-			 * 添加想写的代码
-			 */
 			Scanner in=null;
 			try {
 				in = new Scanner(new File("src/data.txt"));
 			} catch (FileNotFoundException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			int tot = -1;
@@ -69,33 +55,14 @@ public class TableListener implements MouseListener {
 					jFrame.setContentPane(FilePanel.getInstance(jFrame,filepath));
 					jFrame.validate();
 				}
-				
 			}
 		}
 	}
+	public void mouseEntered(MouseEvent e) {}
 
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
+	public void mouseExited(MouseEvent e) {}
 
-	}
+	public void mousePressed(MouseEvent e) {}
 
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
+	public void mouseReleased(MouseEvent e) {}
 }

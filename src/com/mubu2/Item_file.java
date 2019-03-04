@@ -32,10 +32,8 @@ public class Item_file {
 		}
 	}
 
-	
-	@Override
+
 	public String toString() {
-		// TODO Auto-generated method stub
 		return name + "\t" + time + "\t" +path;
 	}
 	void changePath(String path)
@@ -63,7 +61,6 @@ public class Item_file {
 		return time;
 	}
 	public void show() {
-		// TODO 自动生成的方法存根
 		System.out.println(path);
 		System.out.println(name);
 		System.out.println(time);

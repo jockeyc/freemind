@@ -9,51 +9,32 @@ import javax.swing.JTextField;
 public class HighLight implements Action {
 
 	JTextField jTextField;
-	
 	public void setjTextField(JTextField jTextField) {
 		this.jTextField = jTextField;
 	}
 	
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void actionPerformed(ActionEvent e) {}
 
 	@Override
-	public void addPropertyChangeListener(PropertyChangeListener listener) {
-		// TODO Auto-generated method stub
-
-	}
+	public void addPropertyChangeListener(PropertyChangeListener listener) {}
 
 	@Override
 	public Object getValue(String key) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public boolean isEnabled() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public void putValue(String key, Object value) {
-		// TODO Auto-generated method stub
-
-	}
+	public void putValue(String key, Object value) {}
 
 	@Override
-	public void removePropertyChangeListener(PropertyChangeListener listener) {
-		// TODO Auto-generated method stub
-
-	}
+	public void removePropertyChangeListener(PropertyChangeListener listener) {}
 
 	@Override
-	public void setEnabled(boolean b) {
-		// TODO Auto-generated method stub
-
-	}
-
+	public void setEnabled(boolean b) {}
 }

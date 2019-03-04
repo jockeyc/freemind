@@ -20,7 +20,6 @@ public class FilePanelButtonHandler implements ActionListener{
 	JTextField textArea_1;
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
 		String sourse = e.getActionCommand();
 		System.out.println(sourse);
 		switch (sourse) {

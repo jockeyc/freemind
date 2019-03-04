@@ -44,10 +44,8 @@ public class FileHandler {
 	void create(File parent,String fileName) {
 		JFileChooser jfc=new JFileChooser();
 		File file = null;
-		
 		if(jfc.showSaveDialog(null) == JFileChooser.APPROVE_OPTION){
             file=jfc.getSelectedFile();
-            
             if(!file.exists()) {
             	try {
 					file.createNewFile();
@@ -138,7 +136,6 @@ public class FileHandler {
         item.changeName(file.getName());
         item.changePath(file.getParent());
         item.changeTime(lastTime);
-        
         return item;
 	}
 }
