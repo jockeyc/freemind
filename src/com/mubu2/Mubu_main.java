@@ -28,7 +28,7 @@ public class Mubu_main extends JFrame {
 	public static void main(String args[])
 	{
 		Mubu_main mubu=new Mubu_main();
-		mubu.setTitle("幕布");
+		mubu.setTitle("思维导图设计");
 		mubu.setVisible(true);
 	}
 }
