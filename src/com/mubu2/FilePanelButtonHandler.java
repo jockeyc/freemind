@@ -126,9 +126,9 @@ public class FilePanelButtonHandler implements ActionListener{
 			if(count_string>0)
 			{
 				MuxTree a=new MuxTree(textArea_1.getText());
-				MuxTree child=a.insert(lineString[0],a);
+				MuxTree child=a.insert(lineString[1],a);
 				int count_next=0,count;
-				for(int i=1;i<count_string;i++)
+				for(int i=2;i<count_string;i++)
 				{
 					count_next=countTab(lineString[i]);
 					count=countTab(child.getData());

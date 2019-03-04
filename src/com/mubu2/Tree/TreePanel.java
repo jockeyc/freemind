@@ -131,7 +131,7 @@ public class TreePanel extends JPanel {
         
         
         if( n_layer==0){
-        	gridWidth=n.toString().length()*30;
+        	gridWidth=n.toString().length()*15;
         	g.fillRect(x, y, gridWidth, gridHeight_0);
         	g.setColor(stringColor);  
         	g.setFont(new Font("ËÎÌו", Font.BOLD,20));
@@ -139,7 +139,7 @@ public class TreePanel extends JPanel {
         	
         }
         else if (n_layer==1){
-        	gridWidth=n.toString().length()*24;
+        	gridWidth=n.toString().length()*14;
         	g.fillRect(x, y, gridWidth, gridHeight_1);
         	g.setColor(stringColor);  
         	g.setFont(new Font("ËÎÌו", Font.BOLD, 18));
@@ -148,7 +148,7 @@ public class TreePanel extends JPanel {
 
         }
         else {
-        	gridWidth=n.toString().length()*20;
+        	gridWidth=n.toString().length()*14;
         	g.fillRect(x, y, gridWidth, gridHeight);
         	g.setColor(stringColor);  
         	g.setFont(new Font("ËÎÌו",Font.ROMAN_BASELINE, 15));
@@ -210,7 +210,6 @@ public class TreePanel extends JPanel {
             }  
         }  
     }  
-    
     public Color getGridColor() {  
         return gridColor;  
     }  
