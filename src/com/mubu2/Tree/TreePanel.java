@@ -139,7 +139,7 @@ public class TreePanel extends JPanel {
         	
         }
         else if (n_layer==1){
-        	gridWidth=n.toString().length()*14;
+        	gridWidth=n.toString().length()*10;
         	g.fillRect(x, y, gridWidth, gridHeight_1);
         	g.setColor(stringColor);  
         	g.setFont(new Font("ËÎÌו", Font.BOLD, 18));

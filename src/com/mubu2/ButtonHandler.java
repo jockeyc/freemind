@@ -197,7 +197,6 @@ public class ButtonHandler implements ActionListener
 					String path2=path1+title+".txt";
 					data.renameTo(new File(path2));
 					data=new File(path);
-//					System.out.println(data.delete());
 					this.path=path2;
 					
 					Calendar cal = Calendar.getInstance();
